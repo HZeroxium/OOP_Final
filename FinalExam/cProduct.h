@@ -1,13 +1,30 @@
 #pragma once
 
-#include <string>
 #include <vector>
-#include "iFlashSale.h"
+#include <string>
 
-using std::string;
 using std::vector;
+using std::string;
 
-/// @brief Product class represents a product in the store inventory system
+/// @brief Observer interface using the Observer design pattern
+class Observer
+{
+public:
+    virtual void update(bool bFlashSale) = 0;
+    virtual ~Observer() = default;
+};
+
+/// @brief Subject interface using the Observer design pattern
+class Subject
+{
+public:
+    virtual void addObserver(Observer*) = 0;
+    virtual void removeObserver(Observer*) = 0;
+    virtual void notifyObservers() = 0;
+    virtual ~Subject() = default;
+};
+
+/// @brief Concrete implementation of Product class
 class Product : public Observer
 {
 private:
@@ -20,8 +37,8 @@ private:
 
 public: // Constructors & Destructor
     Product();
-    Product(const string &sID, const string &sName, const string &sCategory, double dPrice, unsigned int uiQuantity, bool bIsOnFlashSale = false);
-    Product(const Product &other);
+    Product(const string& sID, const string& sName, const string& sCategory, double dPrice, unsigned int uiQuantity, bool bIsOnFlashSale = false);
+    Product(const Product& other);
     ~Product() override;
 
 public: // Getters
@@ -33,13 +50,34 @@ public: // Getters
     bool getFlashSaleStatus() const;
 
 public: // Setters
-    void setID(const string &sID);
-    void setName(const string &sName);
-    void setCategory(const string &sCategory);
+    void setID(const string& sID);
+    void setName(const string& sName);
+    void setCategory(const string& sCategory);
     void setPrice(double dPrice);
     void setQuantity(unsigned int uiQuantity);
     void setFlashSale(bool bIsOnFlashSale);
 
 public: // Methods
     void update(bool bFlashSale) override;
+};
+
+/// @brief Concrete implementation of FlashSale class
+class FlashSale : public Subject
+{
+private:
+    bool m_bIsOnFlashSale;           ///< Whether the product is on sale
+    vector<Observer*> m_vObservers; ///< List of observers
+
+public: // Constructors & Destructor
+    FlashSale();
+
+public: // Observer methods
+    void addObserver(Observer*) override;
+    void removeObserver(Observer*) override;
+    void notifyObservers() override;
+
+public: // FlashSale methods
+    void setFlashSaleStatus(Product* product, bool bIsOnFlashSale);
+    void setFlashSaleStatus(bool bIsOnFlashSale);
+    constexpr static double FLASH_SALE_PERCENTAGE = 0.2; ///< Percentage of discount for flash sale
 };

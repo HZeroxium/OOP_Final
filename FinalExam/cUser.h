@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cDate.h"
-#include "cShoppingCart.h"
 #include "cOrder.h"
 #include "iCustomerRank.h"
 

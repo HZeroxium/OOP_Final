@@ -7,13 +7,15 @@
 #include "cShoppingCart.h"
 #include "cOrder.h"
 #include "iPaymentMethod.h"
-#include "iPaymentMethodFactory.h"
 #include "iShippingStrategy.h"
 #include "iDiscountCode.h"
 #include "iProductCategory.h"
 #include <memory>
 
 using std::unique_ptr;
+
+// Forward declarations
+class ConsoleState;
 
 /// @brief Console class represents a console
 class Console

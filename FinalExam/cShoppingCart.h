@@ -6,13 +6,34 @@
 #pragma once
 
 #include "cProduct.h"
-#include "iProductIterator.h"
 #include "cUser.h"
 #include <vector>
 #include "uDataManager.h"
 
 using std::pair;
 using std::vector;
+
+/// @brief Iterator interface using the Iterator design pattern
+class ProductIterator
+{
+public:
+    virtual ~ProductIterator() = default;
+    virtual void first() = 0;
+    virtual void next() = 0;
+    virtual bool hasNext() const = 0;
+    virtual Product* currentItem() const = 0;
+};
+
+/// @brief Collection interface using the Iterator design pattern
+class ProductCollection
+{
+public:
+    virtual ~ProductCollection() = default;
+    virtual ProductIterator* createIterator() = 0;
+    virtual void addProduct(Product* product, unsigned int quantity) = 0;
+    virtual void removeProduct(Product* product) = 0;
+    virtual size_t getProductCount() const = 0;
+};
 
 /// @brief Shopping cart class using Singleton Pattern and Observer Pattern
 class ShoppingCart : public ProductCollection
@@ -41,4 +62,19 @@ public: // Shopping cart methods
     void decreaseQuantity(const string &sName, unsigned int uiQuantity);
 
     bool loadCurrentUsersShoppingCart(User *pUser);
+};
+
+/// @brief Concrete implementation of ProductIterator class
+class ShoppingCartIterator : public ProductIterator
+{
+private:
+    ShoppingCart* m_pShoppingCart;
+    size_t m_uiCurrentIndex;
+
+public:
+    ShoppingCartIterator(ShoppingCart* pShoppingCart);
+    void first() override;
+    void next() override;
+    bool hasNext() const override;
+    [[nodiscard]] Product* currentItem() const override;
 };

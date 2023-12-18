@@ -17,16 +17,6 @@ DataManager &DataManager::getInstance()
 //************************************** GETTERS ********************************************************
 //******************************************************************************************************
 
-DataConverter &DataManager::getDataConverter()
-{
-    return DataConverter::getInstance();
-}
-
-DataStorageSystem &DataManager::getDataStorageSystem()
-{
-    return DataStorageSystem::getInstance();
-}
-
 //******************************************************************************************************
 //*********************************** SAVE DATA HELPER METHODS ******************************************
 //******************************************************************************************************
@@ -34,7 +24,7 @@ DataStorageSystem &DataManager::getDataStorageSystem()
 /// @brief Save product list to file with csv format
 bool DataManager::saveProducts() const
 {
-    const string sProductFilePath = getDataStorageSystem().getProductListFilePath();
+    const string sProductFilePath = DataStorageSystem::getInstance().getProductListFilePath();
     std::ofstream fout(sProductFilePath);
 
     if (!fout.is_open())
@@ -45,7 +35,7 @@ bool DataManager::saveProducts() const
 
     for (const Product &product : m_vProducts)
     {
-        const string sProduct = getDataConverter().convertProductToString(product);
+        const string sProduct = DataConverter::getInstance().convertProductToString(product);
         fout << sProduct << std::endl;
     }
 
@@ -55,7 +45,7 @@ bool DataManager::saveProducts() const
 /// @brief Save user list to file with csv format
 bool DataManager::saveUsers()
 {
-    const string sUserFilePath = getDataStorageSystem().getUserListFilePath();
+    const string sUserFilePath = DataStorageSystem::getInstance().getUserListFilePath();
     std::ofstream fout(sUserFilePath);
 
     if (!fout.is_open())
@@ -70,7 +60,7 @@ bool DataManager::saveUsers()
         const Customer *pCustomer = dynamic_cast<const Customer *>(pUser);
         if (pCustomer)
         {
-            const string sCustomer = getDataConverter().convertCustomerToString(*pCustomer);
+            const string sCustomer = DataConverter::getInstance().convertCustomerToString(*pCustomer);
             fout << sCustomer << std::endl;
             saveOrders(*pCustomer);
         }
@@ -88,7 +78,7 @@ bool DataManager::saveOrders(const Customer &customer)
 
     for (const Order &order : vOrders)
     {
-        const string sOrderFilePath = getDataStorageSystem().getCustomerOrderFilePath(customer, order);
+        const string sOrderFilePath = DataStorageSystem::getInstance().getCustomerOrderFilePath(customer, order);
         std::ofstream fout(sOrderFilePath);
 
         if (!fout.is_open())
@@ -168,7 +158,7 @@ bool DataManager::saveOrders(const Customer &customer)
 /// @brief Save store list to file with csv format
 bool DataManager::saveStores()
 {
-    const string sStoreFilePath = getDataStorageSystem().getStoreListFilePath();
+    const string sStoreFilePath = DataStorageSystem::getInstance().getStoreListFilePath();
     std::ofstream fout(sStoreFilePath);
 
     if (!fout.is_open())
@@ -179,7 +169,7 @@ bool DataManager::saveStores()
 
     for (const Store &store : m_vStores)
     {
-        const string sStore = getDataConverter().convertStoreToString(store);
+        const string sStore = DataConverter::getInstance().convertStoreToString(store);
         fout << sStore << std::endl;
         saveStoreProductList(store);
     }
@@ -190,7 +180,7 @@ bool DataManager::saveStores()
 /// @brief Save store product list to file with csv format
 bool DataManager::saveStoreProductList(const Store &store)
 {
-    const string sStoreProductListFilePath = getDataStorageSystem().getSpecificProductListFilePath(store);
+    const string sStoreProductListFilePath = DataStorageSystem::getInstance().getSpecificProductListFilePath(store);
     std::ofstream fout(sStoreProductListFilePath);
 
     if (!fout.is_open())
@@ -205,7 +195,7 @@ bool DataManager::saveStoreProductList(const Store &store)
 
     for (const Product *product : vProducts)
     {
-        const string sProduct = getDataConverter().convertProductToString(*product);
+        const string sProduct = DataConverter::getInstance().convertProductToString(*product);
         fout << sProduct << std::endl;
     }
 
@@ -260,7 +250,7 @@ void DataManager::saveProductCategories(const ProductCategory &productCategory, 
 /// @brief Save product category list to file with tree-like structure
 bool DataManager::saveProductCategories()
 {
-    const string sProductCategoryFilePath = getDataStorageSystem().getCategoryListFilePath();
+    const string sProductCategoryFilePath = DataStorageSystem::getInstance().getCategoryListFilePath();
     std::ofstream fout(sProductCategoryFilePath);
 
     if (!fout.is_open())
@@ -280,7 +270,7 @@ bool DataManager::saveProductCategories()
 /// @brief Save discount code list to file with csv format
 bool DataManager::saveDiscountCodes()
 {
-    const string sDiscountCodeFilePath = getDataStorageSystem().getDiscountCodeListFilePath();
+    const string sDiscountCodeFilePath = DataStorageSystem::getInstance().getDiscountCodeListFilePath();
     std::ofstream fout(sDiscountCodeFilePath);
 
     if (!fout.is_open())
@@ -291,7 +281,7 @@ bool DataManager::saveDiscountCodes()
 
     for (const DiscountCode *pDiscountCode : m_vDiscountCodes)
     {
-        const string sDiscountCode = getDataConverter().convertDiscountCodeToString(pDiscountCode);
+        const string sDiscountCode = DataConverter::getInstance().convertDiscountCodeToString(pDiscountCode);
         fout << sDiscountCode << std::endl;
     }
 
@@ -305,7 +295,7 @@ bool DataManager::saveDiscountCodes()
 /// @brief Load product list from file with csv format
 bool DataManager::loadProducts()
 {
-    const string sProductFilePath = getDataStorageSystem().getProductListFilePath();
+    const string sProductFilePath = DataStorageSystem::getInstance().getProductListFilePath();
     std::ifstream fin(sProductFilePath);
 
     if (!fin.is_open())
@@ -317,7 +307,7 @@ bool DataManager::loadProducts()
     string sProduct;
     while (std::getline(fin, sProduct))
     {
-        Product product = getDataConverter().convertStringToProduct(sProduct);
+        Product product = DataConverter::getInstance().convertStringToProduct(sProduct);
         m_vProducts.push_back(product);
     }
 
@@ -328,7 +318,7 @@ bool DataManager::loadProducts()
 /// @brief Load user list from file with csv format
 bool DataManager::loadUsers()
 {
-    const string sUserFilePath = getDataStorageSystem().getUserListFilePath();
+    const string sUserFilePath = DataStorageSystem::getInstance().getUserListFilePath();
     std::ifstream fin(sUserFilePath);
 
     if (!fin.is_open())
@@ -340,7 +330,7 @@ bool DataManager::loadUsers()
     string sUser;
     while (std::getline(fin, sUser))
     {
-        Customer customer = getDataConverter().convertStringToCustomer(sUser);
+        Customer customer = DataConverter::getInstance().convertStringToCustomer(sUser);
         customer.loadAdditionalData();
         User *pUser = new Customer(customer);
         m_vUsers.push_back(pUser);
@@ -359,7 +349,7 @@ bool DataManager::loadOrders(const Customer &customer)
 
     for (const Order &order : vOrders)
     {
-        const string sOrderFilePath = getDataStorageSystem().getCustomerOrderFilePath(customer, order);
+        const string sOrderFilePath = DataStorageSystem::getInstance().getCustomerOrderFilePath(customer, order);
         std::ifstream fin(sOrderFilePath);
 
         if (!fin.is_open())
@@ -376,7 +366,7 @@ bool DataManager::loadOrders(const Customer &customer)
         std::getline(fin, sTotalPrice);
         std::getline(fin, sFinalPrice);
 
-        const Date orderDate = getDataConverter().convertStringToDate(sOrderDate);
+        const Date orderDate = DataConverter::getInstance().convertStringToDate(sOrderDate);
         const unsigned int uiQuantity = std::stoi(sQuantity);
         const double dTotalPrice = std::stod(sTotalPrice);
         const double dFinalPrice = std::stod(sFinalPrice);
@@ -436,7 +426,7 @@ bool DataManager::loadOrders(const Customer &customer)
 /// @brief Load store list from file with csv format
 bool DataManager::loadStores()
 {
-    const string sStoreFilePath = getDataStorageSystem().getStoreListFilePath();
+    const string sStoreFilePath = DataStorageSystem::getInstance().getStoreListFilePath();
     std::ifstream fin(sStoreFilePath);
 
     if (!fin.is_open())
@@ -448,7 +438,7 @@ bool DataManager::loadStores()
     string sStore;
     while (std::getline(fin, sStore))
     {
-        Store store = getDataConverter().convertStringToStore(sStore);
+        Store store = DataConverter::getInstance().convertStringToStore(sStore);
         m_vStores.push_back(store);
         loadStoreProductList(store);
     }
@@ -460,7 +450,7 @@ bool DataManager::loadStores()
 /// @brief Load store product list from file with csv format
 bool DataManager::loadStoreProductList(Store &store)
 {
-    const string sStoreProductListFilePath = getDataStorageSystem().getSpecificProductListFilePath(store);
+    const string sStoreProductListFilePath = DataStorageSystem::getInstance().getSpecificProductListFilePath(store);
     std::ifstream fin(sStoreProductListFilePath);
 
     if (!fin.is_open())
@@ -472,7 +462,7 @@ bool DataManager::loadStoreProductList(Store &store)
     string sProduct;
     while (std::getline(fin, sProduct))
     {
-        Product product = getDataConverter().convertStringToProduct(sProduct);
+        Product product = DataConverter::getInstance().convertStringToProduct(sProduct);
         store.addProduct(&product);
     }
 
@@ -499,46 +489,46 @@ void DataManager::loadProductCategories(ProductCategory &productCategory, std::i
     --Adidas Stan Smith
     */
 
-    string sCategoryName;
-    std::getline(fin, sCategoryName);
+    //string sCategoryName;
+    //std::getline(fin, sCategoryName);
 
-    // Remove const-quanlifier to call addSubCategory()
-    ProductCategory &productCategoryRef = const_cast<ProductCategory &>(productCategory);
-    productCategoryRef.setName(sCategoryName);
+    //// Remove const-quanlifier to call addSubCategory()
+    //ProductCategory &productCategoryRef = const_cast<ProductCategory &>(productCategory);
+    //productCategoryRef.setName(sCategoryName);
 
-    string sSubCategory;
-    while (std::getline(fin, sSubCategory))
-    {
-        if (sSubCategory[0] == '-')
-        {
-            // Remove "-" from string
-            sSubCategory.erase(0, 1);
-            // Add sub-category
-            CompositeProductCategory *pCompositeProductCategory = dynamic_cast<CompositeProductCategory *>(&productCategoryRef);
-            if (pCompositeProductCategory)
-            {
-                ProductCategory *pProductCategory = new LeafProductCategory(sSubCategory);
-                pCompositeProductCategory->addSubCategory(pProductCategory);
-            }
-        }
-        else
-        {
-            // Go back to previous line
-            fin.seekg(-sSubCategory.length(), std::ios::cur);
-            break;
-        }
-    }
+    //string sSubCategory;
+    //while (std::getline(fin, sSubCategory))
+    //{
+    //    if (sSubCategory[0] == '-')
+    //    {
+    //        // Remove "-" from string
+    //        sSubCategory.erase(0, 1);
+    //        // Add sub-category
+    //        CompositeProductCategory *pCompositeProductCategory = dynamic_cast<CompositeProductCategory *>(&productCategoryRef);
+    //        if (pCompositeProductCategory)
+    //        {
+    //            ProductCategory *pProductCategory = new LeafProductCategory(sSubCategory);
+    //            pCompositeProductCategory->addSubCategory(pProductCategory);
+    //        }
+    //    }
+    //    else
+    //    {
+    //        // Go back to previous line
+    //        fin.seekg(-sSubCategory.length(), std::ios::cur);
+    //        break;
+    //    }
+    //}
 
-    // Check if product category has sub-categories
-    const CompositeProductCategory *pCompositeProductCategory = dynamic_cast<CompositeProductCategory *>(&productCategoryRef);
-    if (pCompositeProductCategory)
-    {
-        const vector<ProductCategory *> &vSubCategories = pCompositeProductCategory->getSubCategories();
-        for (ProductCategory *pSubCategory : vSubCategories)
-        {
-            loadProductCategories(*pSubCategory, fin);
-        }
-    }
+    //// Check if product category has sub-categories
+    //const CompositeProductCategory *pCompositeProductCategory = dynamic_cast<CompositeProductCategory *>(&productCategoryRef);
+    //if (pCompositeProductCategory)
+    //{
+    //    const vector<ProductCategory *> &vSubCategories = pCompositeProductCategory->getSubCategories();
+    //    for (ProductCategory *pSubCategory : vSubCategories)
+    //    {
+    //        loadProductCategories(*pSubCategory, fin);
+    //    }
+    //}
 }
 
 /// @brief Load product category list from file with tree-like structure
@@ -550,7 +540,7 @@ bool DataManager::loadProductCategories()
 /// @brief Load discount code list from file with csv format
 bool DataManager::loadDiscountCodes()
 {
-    const string sDiscountCodeFilePath = getDataStorageSystem().getDiscountCodeListFilePath();
+    const string sDiscountCodeFilePath = DataStorageSystem::getInstance().getDiscountCodeListFilePath();
     std::ifstream fin(sDiscountCodeFilePath);
 
     if (!fin.is_open())
@@ -562,7 +552,7 @@ bool DataManager::loadDiscountCodes()
     string sDiscountCode;
     while (std::getline(fin, sDiscountCode))
     {
-        DiscountCode *pDiscountCode = getDataConverter().convertStringToDiscountCode(sDiscountCode);
+        DiscountCode *pDiscountCode = DataConverter::getInstance().convertStringToDiscountCode(sDiscountCode);
         m_vDiscountCodes.push_back(pDiscountCode);
     }
 

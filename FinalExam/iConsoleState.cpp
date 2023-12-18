@@ -589,7 +589,7 @@ void CheckoutState::handleInput(Console &console)
                 return;
             }
         }
-        string orderCode = "";
+        string orderCode;
         Order order;
         unsigned int uiTotalQuantity = 0;
         double dTotalPrice = 0;

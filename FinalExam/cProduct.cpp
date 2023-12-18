@@ -1,6 +1,46 @@
 #include "cProduct.h"
 #include <iostream>
 
+//=====================================================================================================================
+//==================================== FLASH SALE =====================================================================
+//=====================================================================================================================
+
+//*********************************************************************************************************************
+//************************************** OBSERVER METHODS *************************************************************
+//*********************************************************************************************************************
+
+void FlashSale::addObserver(Observer* observer)
+{
+    m_vObservers.push_back(observer);
+}
+
+void FlashSale::removeObserver(Observer* observer)
+{
+    m_vObservers.erase(std::remove(m_vObservers.begin(), m_vObservers.end(), observer), m_vObservers.end());
+}
+
+void FlashSale::notifyObservers()
+{
+    for (const auto observer : m_vObservers)
+    {
+        observer->update(this->m_bIsOnFlashSale);
+    }
+}
+
+//********************************************************************************************************************
+//************************************** FLASH SALE METHODS **********************************************************
+//********************************************************************************************************************
+
+void FlashSale::setFlashSaleStatus(bool bIsOnFlashSale)
+{
+    this->m_bIsOnFlashSale = bIsOnFlashSale;
+    notifyObservers();
+}
+
+//=====================================================================================================================
+//======================================= PRODUCT =====================================================================
+//=====================================================================================================================
+
 //******************************************************************************************************
 //************************************ CONSTRUCTORS & DESTRUCTOR ****************************************
 //******************************************************************************************************
@@ -14,7 +54,7 @@ Product::Product()
     m_bIsOnFlashSale = false;
 }
 
-Product::Product(const string &sID, const string &sName, const string &sCategory, double dPrice, unsigned int uiQuantity, bool bIsOnFlashSale)
+Product::Product(const string& sID, const string& sName, const string& sCategory, double dPrice, unsigned int uiQuantity, bool bIsOnFlashSale)
 {
     m_sID = sID;
     m_sName = sName;
@@ -24,7 +64,7 @@ Product::Product(const string &sID, const string &sName, const string &sCategory
     m_bIsOnFlashSale = bIsOnFlashSale;
 }
 
-Product::Product(const Product &other)
+Product::Product(const Product& other)
 {
     m_sID = other.m_sID;
     m_sName = other.m_sName;
@@ -34,9 +74,7 @@ Product::Product(const Product &other)
     m_bIsOnFlashSale = other.m_bIsOnFlashSale;
 }
 
-Product::~Product()
-{
-}
+Product::~Product() = default;
 
 //******************************************************************************************************
 //********************************************** GETTERS ***********************************************
@@ -76,17 +114,17 @@ bool Product::getFlashSaleStatus() const
 //********************************************** SETTERS ***********************************************
 //******************************************************************************************************
 
-void Product::setID(const string &sID)
+void Product::setID(const string& sID)
 {
     m_sID = sID;
 }
 
-void Product::setName(const string &sName)
+void Product::setName(const string& sName)
 {
     m_sName = sName;
 }
 
-void Product::setCategory(const string &sCategory)
+void Product::setCategory(const string& sCategory)
 {
     m_sCategory = sCategory;
 }
@@ -119,7 +157,7 @@ void Product::setFlashSale(bool bIsOnFlashSale)
 
 void Product::update(bool bFlashSale)
 {
-	const bool isSame = (m_bIsOnFlashSale == bFlashSale);
+    const bool isSame = (m_bIsOnFlashSale == bFlashSale);
     if (!isSame)
     {
         m_bIsOnFlashSale = bFlashSale;

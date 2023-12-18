@@ -52,10 +52,6 @@ public: // Data management methods
     bool loadData();
     bool saveData();
 
-public: // Singleton Getters
-    static DataConverter &getDataConverter();
-    static DataStorageSystem &getDataStorageSystem();
-
 public: // Getters
     vector<Product> &getProducts();
     vector<User *> &getUsers();

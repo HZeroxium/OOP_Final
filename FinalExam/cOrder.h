@@ -18,7 +18,8 @@ class Order;
 class OrderState
 {
 public:
-    virtual void processOrder(Order &order) = 0;
+	virtual ~OrderState() = default;
+	virtual void processOrder(Order &order) = 0;
     virtual void shipOrder(Order &order) = 0;
     virtual void deliverOrder(Order &order) = 0;
     virtual void cancelOrder(Order &order) = 0;
@@ -76,13 +77,14 @@ public: // Methods
 /// @brief Concrete state class of the State Pattern
 
 /// @brief Concrete state class while the order is in processing state
-class ProcessingState : public OrderState
+class ProcessingState final : public OrderState
 {
 public:
     void processOrder(Order &order) override;
     void shipOrder(Order &order) override;
     void deliverOrder(Order &order) override;
     void cancelOrder(Order &order) override;
+    ~ProcessingState() override = default;
 };
 
 /// @brief Concrete state class while the order is in shipping state
@@ -93,16 +95,18 @@ public:
     void shipOrder(Order &order) override;
     void deliverOrder(Order &order) override;
     void cancelOrder(Order &order) override;
+    ~ShippingState() override = default;
 };
 
 /// @brief Concrete state class while the order is in delivered state
-class DeliveredState : public OrderState
+class DeliveredState final : public OrderState
 {
 public:
     void processOrder(Order &order) override;
     void shipOrder(Order &order) override;
     void deliverOrder(Order &order) override;
     void cancelOrder(Order &order) override;
+    ~DeliveredState() override = default;
 };
 
 /// @brief Concrete state class while the order is in cancelled state
@@ -113,6 +117,7 @@ public:
     void shipOrder(Order &order) override;
     void deliverOrder(Order &order) override;
     void cancelOrder(Order &order) override;
+    ~CancelledState() override = default;
 };
 
 /// @brief Enum class representing the state of the order

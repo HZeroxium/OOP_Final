@@ -61,7 +61,17 @@ size_t ShoppingCart::getProductCount() const
 
 Product *ShoppingCart::getProductAtIndex(size_t index) const
 {
-    return m_vProducts[index].first;
+    // Check if the index is valid
+    if (index >= m_vProducts.size())
+	{
+		std::cerr << "Index " << index << " is out of range!" << std::endl;
+		return nullptr;
+	}
+
+    const auto &product = m_vProducts[index];
+    Product* pProduct = product.first;
+
+    return pProduct;
 }
 
 const vector<pair<Product *, unsigned int>> &ShoppingCart::getProducts() const
@@ -149,4 +159,36 @@ bool ShoppingCart::loadCurrentUsersShoppingCart(User *pUser)
 
     fin.close();
     return true;
+}
+
+//=====================================================================================================================
+//================================ SHOPPING CART ITERATOR ==============================================================
+//=====================================================================================================================
+
+ShoppingCartIterator::ShoppingCartIterator(ShoppingCart* pShoppingCart)
+{
+    m_pShoppingCart = pShoppingCart;
+    m_uiCurrentIndex = 0;
+}
+
+void ShoppingCartIterator::first()
+{
+    m_uiCurrentIndex = 0;
+}
+
+void ShoppingCartIterator::next()
+{
+    m_uiCurrentIndex++;
+}
+
+bool ShoppingCartIterator::hasNext() const
+{
+    return m_uiCurrentIndex < m_pShoppingCart->getProductCount();
+}
+
+Product* ShoppingCartIterator::currentItem() const
+{
+	if (hasNext())
+        return m_pShoppingCart->getProductAtIndex(m_uiCurrentIndex);
+    return nullptr;
 }
