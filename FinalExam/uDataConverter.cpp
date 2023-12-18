@@ -171,8 +171,7 @@ Customer DataConverter::convertStringToCustomer(const string &sUser)
     Date birthDate = convertStringToDate(sBirthDate);
 
     CustomerRank *pRank = nullptr;
-    int iRank = std::stoi(sRankName);
-    switch (iRank)
+    switch (int iRank = std::stoi(sRankName))
     {
     case CustomerRankType::REGULAR:
         pRank = new RegularCustomerRank();

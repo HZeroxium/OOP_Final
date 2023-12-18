@@ -40,6 +40,7 @@ bool DataManager::saveProducts() const
     }
 
     fout.close();
+    return true;
 }
 
 /// @brief Save user list to file with csv format
@@ -57,8 +58,7 @@ bool DataManager::saveUsers()
     for (const User *pUser : m_vUsers)
     {
         // Check if user is a customer
-        const Customer *pCustomer = dynamic_cast<const Customer *>(pUser);
-        if (pCustomer)
+        if (const auto*pCustomer = dynamic_cast<const Customer *>(pUser))
         {
             const string sCustomer = DataConverter::getInstance().convertCustomerToString(*pCustomer);
             fout << sCustomer << std::endl;
@@ -67,6 +67,7 @@ bool DataManager::saveUsers()
     }
 
     fout.close();
+    return true;
 }
 
 /// @brief Save order list to file with csv format
@@ -175,6 +176,7 @@ bool DataManager::saveStores()
     }
 
     fout.close();
+    return true;
 }
 
 /// @brief Save store product list to file with csv format
@@ -189,7 +191,7 @@ bool DataManager::saveStoreProductList(const Store &store)
         return false;
     }
     // Remove const-quanlifier to call getProducts()
-    Store &storeRef = const_cast<Store &>(store);
+    auto& storeRef = const_cast<Store &>(store);
 
     const vector<Product *> &vProducts = storeRef.getProducts();
 
@@ -200,6 +202,7 @@ bool DataManager::saveStoreProductList(const Store &store)
     }
 
     fout.close();
+    return true;
 }
 
 /// @brief Save product category list to file with tree-like structure using "-" to indicate level
@@ -221,30 +224,34 @@ void DataManager::saveProductCategories(const ProductCategory &productCategory, 
     --Adidas Stan Smith
     */
 
-    const string sCategoryName = productCategory.getName();
-    static int iLevel = 0;
-    string sLevel = "";
-    for (int i = 0; i < iLevel; ++i)
-    {
-        sLevel += "-";
-    }
+    //const string sCategoryName = productCategory.getName();
+    //static int iLevel = 0;
+    //string sLevel = "";
+    //for (int i = 0; i < iLevel; ++i)
+    //{
+    //    sLevel += "-";
+    //}
 
-    fout << sLevel << sCategoryName << std::endl;
+    //fout << sLevel << sCategoryName << std::endl;
 
-    // Remove const-quanlifier to call getSubCategories()
-    ProductCategory &productCategoryRef = const_cast<ProductCategory &>(productCategory);
-    // Check if product category has sub-categories
-    const CompositeProductCategory *pCompositeProductCategory = dynamic_cast<CompositeProductCategory *>(&productCategoryRef);
-    if (pCompositeProductCategory)
-    {
-        ++iLevel;
-        const vector<ProductCategory *> &vSubCategories = pCompositeProductCategory->getSubCategories();
-        for (const ProductCategory *pSubCategory : vSubCategories)
-        {
-            saveProductCategories(*pSubCategory, fout);
-        }
-        --iLevel;
-    }
+    //// Remove const-quanlifier to call getSubCategories()
+    //ProductCategory &productCategoryRef = const_cast<ProductCategory &>(productCategory);
+    //// Check if product category has sub-categories
+    //if (const CompositeProductCategory *pCompositeProductCategory = dynamic_cast<CompositeProductCategory *>(&productCategoryRef))
+    //{
+    //    ++iLevel;
+    //    const vector<ProductCategory *> &vSubCategories = pCompositeProductCategory->getSubCategories();
+    //    for (const ProductCategory *pSubCategory : vSubCategories)
+    //    {
+    //        saveProductCategories(*pSubCategory, fout);
+    //    }
+    //    --iLevel;
+    //}
+    //else
+    //{
+    //    return;
+    //}
+    return;
 }
 
 /// @brief Save product category list to file with tree-like structure
@@ -265,6 +272,7 @@ bool DataManager::saveProductCategories()
     }
 
     fout.close();
+    return true;
 }
 
 /// @brief Save discount code list to file with csv format
@@ -286,6 +294,7 @@ bool DataManager::saveDiscountCodes()
     }
 
     fout.close();
+    return true;
 }
 
 //******************************************************************************************************
@@ -373,8 +382,7 @@ bool DataManager::loadOrders(const Customer &customer)
 
         // Convert order state to enum
         OrderState *pOrderState = nullptr;
-        int iOrderState = std::stoi(sOrderState);
-        switch (iOrderState)
+        switch (int iOrderState = std::stoi(sOrderState))
         {
         case OrderStatus::PROCESSING:
             pOrderState = new ProcessingState();
