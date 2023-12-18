@@ -20,7 +20,7 @@ public:
     vector<DiscountCode *> m_vDiscountCodes;      ///< List of discount codes
 
 private:
-    DataManager(); ///< Private constructor of the Singleton Pattern
+    DataManager() = default; ///< Private constructor of the Singleton Pattern
 
 public: // Singleton Methods
     static DataManager &getInstance();

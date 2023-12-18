@@ -4,7 +4,7 @@
 //======================================================================================================
 //======================================== PRODUCT CATEGORY ============================================
 
-ProductCategory::ProductCategory(const string& sName)
+ProductCategory::ProductCategory(const string &sName)
 {
     m_sName = sName;
 }
@@ -16,16 +16,14 @@ string ProductCategory::getName() const
 
 void ProductCategory::setName(const string &sName)
 {
-	m_sName = sName;
+    m_sName = sName;
 }
-
-
 
 //======================================================================================================
 //======================================== LEAF PRODUCT CATEGORY =======================================
 //======================================================================================================
 
-LeafProductCategory::LeafProductCategory(const string &sCategoryName): ProductCategory(sCategoryName)
+LeafProductCategory::LeafProductCategory(const string &sCategoryName) : ProductCategory(sCategoryName)
 {
 }
 
@@ -43,7 +41,7 @@ void LeafProductCategory::display() const
 //==================================== COMPOSITE PRODUCT CATEGORY ======================================
 //======================================================================================================
 
-CompositeProductCategory::CompositeProductCategory(const string &sCategoryName): ProductCategory(sCategoryName)
+CompositeProductCategory::CompositeProductCategory(const string &sCategoryName) : ProductCategory(sCategoryName)
 {
 }
 
@@ -71,6 +69,7 @@ bool CompositeProductCategory::addSubCategory(ProductCategory *pProductCategory)
 
     // Add the category
     m_vProductCategories.push_back(pProductCategory);
+    return true;
 }
 
 bool CompositeProductCategory::removeSubCategory(const ProductCategory *pProductCategory)

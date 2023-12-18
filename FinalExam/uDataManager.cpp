@@ -58,7 +58,7 @@ bool DataManager::saveUsers()
     for (const User *pUser : m_vUsers)
     {
         // Check if user is a customer
-        if (const auto*pCustomer = dynamic_cast<const Customer *>(pUser))
+        if (const auto *pCustomer = dynamic_cast<const Customer *>(pUser))
         {
             const string sCustomer = DataConverter::getInstance().convertCustomerToString(*pCustomer);
             fout << sCustomer << std::endl;
@@ -191,7 +191,7 @@ bool DataManager::saveStoreProductList(const Store &store)
         return false;
     }
     // Remove const-quanlifier to call getProducts()
-    auto& storeRef = const_cast<Store &>(store);
+    auto &storeRef = const_cast<Store &>(store);
 
     const vector<Product *> &vProducts = storeRef.getProducts();
 
@@ -224,33 +224,33 @@ void DataManager::saveProductCategories(const ProductCategory &productCategory, 
     --Adidas Stan Smith
     */
 
-    //const string sCategoryName = productCategory.getName();
-    //static int iLevel = 0;
-    //string sLevel = "";
-    //for (int i = 0; i < iLevel; ++i)
+    // const string sCategoryName = productCategory.getName();
+    // static int iLevel = 0;
+    // string sLevel = "";
+    // for (int i = 0; i < iLevel; ++i)
     //{
-    //    sLevel += "-";
-    //}
+    //     sLevel += "-";
+    // }
 
-    //fout << sLevel << sCategoryName << std::endl;
+    // fout << sLevel << sCategoryName << std::endl;
 
     //// Remove const-quanlifier to call getSubCategories()
-    //ProductCategory &productCategoryRef = const_cast<ProductCategory &>(productCategory);
+    // ProductCategory &productCategoryRef = const_cast<ProductCategory &>(productCategory);
     //// Check if product category has sub-categories
-    //if (const CompositeProductCategory *pCompositeProductCategory = dynamic_cast<CompositeProductCategory *>(&productCategoryRef))
+    // if (const CompositeProductCategory *pCompositeProductCategory = dynamic_cast<CompositeProductCategory *>(&productCategoryRef))
     //{
-    //    ++iLevel;
-    //    const vector<ProductCategory *> &vSubCategories = pCompositeProductCategory->getSubCategories();
-    //    for (const ProductCategory *pSubCategory : vSubCategories)
-    //    {
-    //        saveProductCategories(*pSubCategory, fout);
-    //    }
-    //    --iLevel;
-    //}
-    //else
+    //     ++iLevel;
+    //     const vector<ProductCategory *> &vSubCategories = pCompositeProductCategory->getSubCategories();
+    //     for (const ProductCategory *pSubCategory : vSubCategories)
+    //     {
+    //         saveProductCategories(*pSubCategory, fout);
+    //     }
+    //     --iLevel;
+    // }
+    // else
     //{
-    //    return;
-    //}
+    //     return;
+    // }
     return;
 }
 
@@ -497,46 +497,46 @@ void DataManager::loadProductCategories(ProductCategory &productCategory, std::i
     --Adidas Stan Smith
     */
 
-    //string sCategoryName;
-    //std::getline(fin, sCategoryName);
+    // string sCategoryName;
+    // std::getline(fin, sCategoryName);
 
     //// Remove const-quanlifier to call addSubCategory()
-    //ProductCategory &productCategoryRef = const_cast<ProductCategory &>(productCategory);
-    //productCategoryRef.setName(sCategoryName);
+    // ProductCategory &productCategoryRef = const_cast<ProductCategory &>(productCategory);
+    // productCategoryRef.setName(sCategoryName);
 
-    //string sSubCategory;
-    //while (std::getline(fin, sSubCategory))
+    // string sSubCategory;
+    // while (std::getline(fin, sSubCategory))
     //{
-    //    if (sSubCategory[0] == '-')
-    //    {
-    //        // Remove "-" from string
-    //        sSubCategory.erase(0, 1);
-    //        // Add sub-category
-    //        CompositeProductCategory *pCompositeProductCategory = dynamic_cast<CompositeProductCategory *>(&productCategoryRef);
-    //        if (pCompositeProductCategory)
-    //        {
-    //            ProductCategory *pProductCategory = new LeafProductCategory(sSubCategory);
-    //            pCompositeProductCategory->addSubCategory(pProductCategory);
-    //        }
-    //    }
-    //    else
-    //    {
-    //        // Go back to previous line
-    //        fin.seekg(-sSubCategory.length(), std::ios::cur);
-    //        break;
-    //    }
-    //}
+    //     if (sSubCategory[0] == '-')
+    //     {
+    //         // Remove "-" from string
+    //         sSubCategory.erase(0, 1);
+    //         // Add sub-category
+    //         CompositeProductCategory *pCompositeProductCategory = dynamic_cast<CompositeProductCategory *>(&productCategoryRef);
+    //         if (pCompositeProductCategory)
+    //         {
+    //             ProductCategory *pProductCategory = new LeafProductCategory(sSubCategory);
+    //             pCompositeProductCategory->addSubCategory(pProductCategory);
+    //         }
+    //     }
+    //     else
+    //     {
+    //         // Go back to previous line
+    //         fin.seekg(-sSubCategory.length(), std::ios::cur);
+    //         break;
+    //     }
+    // }
 
     //// Check if product category has sub-categories
-    //const CompositeProductCategory *pCompositeProductCategory = dynamic_cast<CompositeProductCategory *>(&productCategoryRef);
-    //if (pCompositeProductCategory)
+    // const CompositeProductCategory *pCompositeProductCategory = dynamic_cast<CompositeProductCategory *>(&productCategoryRef);
+    // if (pCompositeProductCategory)
     //{
-    //    const vector<ProductCategory *> &vSubCategories = pCompositeProductCategory->getSubCategories();
-    //    for (ProductCategory *pSubCategory : vSubCategories)
-    //    {
-    //        loadProductCategories(*pSubCategory, fin);
-    //    }
-    //}
+    //     const vector<ProductCategory *> &vSubCategories = pCompositeProductCategory->getSubCategories();
+    //     for (ProductCategory *pSubCategory : vSubCategories)
+    //     {
+    //         loadProductCategories(*pSubCategory, fin);
+    //     }
+    // }
 }
 
 /// @brief Load product category list from file with tree-like structure
@@ -602,6 +602,42 @@ vector<DiscountCode *> &DataManager::getDiscountCodes()
     return m_vDiscountCodes;
 }
 
+//******************************************************************************************************
+//************************************** ACCESSORS *****************************************************
+//******************************************************************************************************
+
+Product *DataManager::getProduct(const string &sProductName) const
+{
+    for (const Product &product : m_vProducts)
+    {
+        if (product.getName() == sProductName)
+        {
+            // Remove const-quanlifier to return a non-const pointer
+
+            Product &productRef = const_cast<Product &>(product);
+            Product *pProduct = &productRef;
+            return pProduct;
+        }
+    }
+    return nullptr;
+}
+
+Product *DataManager::getProductByCategory(const string &sProductName, const string &sProductCategoryName) const
+{
+    for (const Product &product : m_vProducts)
+    {
+        if (product.getName() == sProductName && product.getCategory() == sProductCategoryName)
+        {
+            // Remove const-quanlifier to return a non-const pointer
+
+            Product &productRef = const_cast<Product &>(product);
+            Product *pProduct = &productRef;
+            return pProduct;
+        }
+    }
+    return nullptr;
+}
+
 User *DataManager::getUser(const string &sUsername, const string &password) const
 {
     for (User *pUser : m_vUsers)
@@ -612,4 +648,62 @@ User *DataManager::getUser(const string &sUsername, const string &password) cons
         }
     }
     return nullptr;
+}
+
+Store *DataManager::getStore(const string &sStoreName) const
+{
+    for (const Store &store : m_vStores)
+    {
+        if (store.getName() == sStoreName)
+        {
+            // Remove const-quanlifier to return a non-const pointer
+
+            Store &storeRef = const_cast<Store &>(store);
+            Store *pStore = &storeRef;
+            return pStore;
+        }
+    }
+    return nullptr;
+}
+
+ProductCategory *DataManager::getProductCategory(const string &sProductCategoryName) const
+{
+    for (const ProductCategory &productCategory : m_vProductCategories)
+    {
+        if (productCategory.getName() == sProductCategoryName)
+        {
+            // Remove const-quanlifier to return a non-const pointer
+
+            ProductCategory &productCategoryRef = const_cast<ProductCategory &>(productCategory);
+            ProductCategory *pProductCategory = &productCategoryRef;
+            return pProductCategory;
+        }
+    }
+    return nullptr;
+}
+
+DiscountCode *DataManager::getDiscountCode(const string &sDiscountCodeName) const
+{
+    for (DiscountCode *pDiscountCode : m_vDiscountCodes)
+    {
+        if (pDiscountCode->getCode() == sDiscountCodeName)
+        {
+            return pDiscountCode;
+        }
+    }
+    return nullptr;
+}
+
+//******************************************************************************************************
+//************************************** DATA MANAGEMENT METHODS ***************************************
+//******************************************************************************************************
+
+bool DataManager::loadData()
+{
+    return loadProducts() && loadUsers() && loadStores() && loadProductCategories() && loadDiscountCodes();
+}
+
+bool DataManager::saveData()
+{
+    return saveProducts() && saveUsers() && saveStores() && saveProductCategories() && saveDiscountCodes();
 }

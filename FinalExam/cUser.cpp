@@ -148,6 +148,16 @@ void User::setGender(const string &sGender)
 //********************************************** METHODS ***********************************************
 //******************************************************************************************************
 
+void User::display() const
+{
+    // Display user info
+}
+
+void User::loadAdditionalData()
+{
+    // Load additional data
+}
+
 //======================================================================================================
 //==================================== CUSTOMER ========================================================
 //======================================================================================================
@@ -194,7 +204,7 @@ Customer::Customer(const string &sUsername, const string &sPassword, const Date 
 }
 
 Customer::Customer(const Customer &other)
-	: User(other)
+    : User(other)
 {
     m_sUsername = other.m_sUsername;
     m_sPassword = other.m_sPassword;

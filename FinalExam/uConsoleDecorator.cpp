@@ -66,6 +66,16 @@ namespace console
         cout << "FLASH SALE: " << (product.getFlashSaleStatus() ? "Yes" : "No") << endl;
     }
 
+    void printUserInformation(const User &user)
+    {
+        cout << "User information: " << endl;
+        cout << "Name: " << user.getUsername() << endl;
+        cout << "Email: " << user.getEmail() << endl;
+        cout << "Phone: " << user.getPhoneNumber() << endl;
+        cout << "Date of birth: " << user.getBirthDate().toString() << endl;
+        cout << "Join date: " << user.getJoinDate().toString() << endl;
+    }
+
     string inputString(const string &sMessage)
     {
         string sInput;

@@ -9,14 +9,22 @@
 //************************************** OBSERVER METHODS *************************************************************
 //*********************************************************************************************************************
 
-void FlashSale::addObserver(Observer* observer)
+void FlashSale::addObserver(Observer *observer)
 {
     m_vObservers.push_back(observer);
 }
 
-void FlashSale::removeObserver(Observer* observer)
+void FlashSale::removeObserver(Observer *observer)
 {
-    m_vObservers.erase(std::remove(m_vObservers.begin(), m_vObservers.end(), observer), m_vObservers.end());
+    // Find the observer
+    for (auto it = m_vObservers.begin(); it != m_vObservers.end(); ++it)
+    {
+        if (*it == observer)
+        {
+            m_vObservers.erase(it);
+            break;
+        }
+    }
 }
 
 void FlashSale::notifyObservers()
@@ -54,7 +62,7 @@ Product::Product()
     m_bIsOnFlashSale = false;
 }
 
-Product::Product(const string& sID, const string& sName, const string& sCategory, double dPrice, unsigned int uiQuantity, bool bIsOnFlashSale)
+Product::Product(const string &sID, const string &sName, const string &sCategory, double dPrice, unsigned int uiQuantity, bool bIsOnFlashSale)
 {
     m_sID = sID;
     m_sName = sName;
@@ -64,7 +72,7 @@ Product::Product(const string& sID, const string& sName, const string& sCategory
     m_bIsOnFlashSale = bIsOnFlashSale;
 }
 
-Product::Product(const Product& other)
+Product::Product(const Product &other)
 {
     m_sID = other.m_sID;
     m_sName = other.m_sName;
@@ -114,17 +122,17 @@ bool Product::getFlashSaleStatus() const
 //********************************************** SETTERS ***********************************************
 //******************************************************************************************************
 
-void Product::setID(const string& sID)
+void Product::setID(const string &sID)
 {
     m_sID = sID;
 }
 
-void Product::setName(const string& sName)
+void Product::setName(const string &sName)
 {
     m_sName = sName;
 }
 
-void Product::setCategory(const string& sCategory)
+void Product::setCategory(const string &sCategory)
 {
     m_sCategory = sCategory;
 }

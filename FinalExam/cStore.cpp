@@ -48,6 +48,22 @@ vector<Product *> &Store::getProducts()
     return m_vProducts;
 }
 
+Product *Store::getProduct(const string &sName) const
+{
+    // Find if the product exists
+    for (auto it = m_vProducts.begin(); it != m_vProducts.end(); ++it)
+    {
+        if ((*it)->getName() == sName)
+        {
+            return *it;
+        }
+    }
+
+    // If it doesn't, return nullptr
+    std::cerr << "Product " << sName << " does not exist in store!" << std::endl;
+    return nullptr;
+}
+
 //******************************************************************************************************
 //********************************************** SETTERS ***********************************************
 //******************************************************************************************************
@@ -87,6 +103,7 @@ bool Store::addProduct(Product *pProduct)
 
     // If it doesn't, add the product to the store
     m_vProducts.push_back(pProduct);
+    return true;
 }
 
 bool Store::removeProduct(const Product *pProduct)

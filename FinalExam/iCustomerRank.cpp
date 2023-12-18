@@ -4,6 +4,11 @@ constexpr double BRONZE_DISCOUNT = 0.01;
 constexpr double SILVER_DISCOUNT = 0.02;
 constexpr double GOLD_DISCOUNT = 0.04;
 
+double RegularCustomerRank::applyDiscount(double price) const
+{
+    return price;
+}
+
 double BronzeCustomerRank::applyDiscount(double price) const
 {
     return price * (1 - BRONZE_DISCOUNT);
