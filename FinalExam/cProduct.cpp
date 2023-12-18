@@ -39,6 +39,11 @@ void FlashSale::notifyObservers()
 //************************************** FLASH SALE METHODS **********************************************************
 //********************************************************************************************************************
 
+void FlashSale::setFlashSaleStatus(Product *product, bool bIsOnFlashSale)
+{
+		product->setFlashSale(bIsOnFlashSale);
+}
+
 void FlashSale::setFlashSaleStatus(bool bIsOnFlashSale)
 {
     this->m_bIsOnFlashSale = bIsOnFlashSale;

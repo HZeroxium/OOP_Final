@@ -37,22 +37,22 @@ private: // Load data helpers
     static void loadProductCategories(ProductCategory &productCategory, std::ifstream &fin);
     static bool loadProductCategories();
     bool loadDiscountCodes();
-    bool loadReviews(Product &product);
+    static bool loadReviews(Product &product);
 
 private: // Save data helpers
     bool saveProducts() const;
-    bool saveUsers();
+    bool saveUsers() const;
     static bool saveOrders(const Customer &customer);
-    bool saveStores();
-    bool saveStoreProductList(const Store &store);
+    bool saveStores() const;
+    static bool saveStoreProductList(const Store &store);
     static void saveProductCategories(const ProductCategory &productCategory, std::ofstream &fout);
-    bool saveProductCategories();
-    bool saveDiscountCodes();
-    bool saveReviews(const Product &product);
+    bool saveProductCategories() const;
+    bool saveDiscountCodes() const;
+    static bool saveReviews(const Product &product);
 
 public: // Data management methods
     bool loadData();
-    bool saveData();
+    bool saveData() const;
 
 public: // Getters
     vector<Product> &getProducts();

@@ -133,6 +133,7 @@
     <ClCompile Include="cDate.cpp" />
     <ClCompile Include="cOrder.cpp" />
     <ClCompile Include="cProduct.cpp" />
+    <ClCompile Include="cReview.cpp" />
     <ClCompile Include="cShoppingCart.cpp" />
     <ClCompile Include="cStore.cpp" />
     <ClCompile Include="cUser.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="cDate.h" />
     <ClInclude Include="cOrder.h" />
     <ClInclude Include="cProduct.h" />
+    <ClInclude Include="cReview.h" />
     <ClInclude Include="cShoppingCart.h" />
     <ClInclude Include="cStore.h" />
     <ClInclude Include="cUser.h" />

@@ -73,7 +73,7 @@ private:
     vector<Observer *> m_vObservers; ///< List of observers
 
 public: // Constructors & Destructor
-    FlashSale();
+    FlashSale() = default;
 
 public: // Observer methods
     void addObserver(Observer *) override;
@@ -81,7 +81,7 @@ public: // Observer methods
     void notifyObservers() override;
 
 public: // FlashSale methods
-    void setFlashSaleStatus(Product *product, bool bIsOnFlashSale);
+    static void setFlashSaleStatus(Product *product, bool bIsOnFlashSale);
     void setFlashSaleStatus(bool bIsOnFlashSale);
     constexpr static double FLASH_SALE_PERCENTAGE = 0.2; ///< Percentage of discount for flash sale
 };

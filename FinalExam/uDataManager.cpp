@@ -15,11 +15,11 @@ DataManager &DataManager::getInstance()
 
 DataManager::~DataManager()
 {
-    for (User *pUser : m_vUsers)
+    for (const User *pUser : m_vUsers)
     {
         delete pUser;
     }
-    for (DiscountCode *pDiscountCode : m_vDiscountCodes)
+    for (const DiscountCode *pDiscountCode : m_vDiscountCodes)
     {
         delete pDiscountCode;
     }
@@ -62,7 +62,7 @@ bool DataManager::saveProducts() const
 }
 
 /// @brief Save user list to file with csv format
-bool DataManager::saveUsers()
+bool DataManager::saveUsers() const
 {
     const string sUserFilePath = DataStorageSystem::getInstance().getUserListFilePath();
     std::ofstream fout(sUserFilePath);
@@ -178,7 +178,7 @@ bool DataManager::saveOrders(const Customer &customer)
 };
 
 /// @brief Save store list to file with csv format
-bool DataManager::saveStores()
+bool DataManager::saveStores() const
 {
     const string sStoreFilePath = DataStorageSystem::getInstance().getStoreListFilePath();
     std::ofstream fout(sStoreFilePath);
@@ -279,7 +279,7 @@ void DataManager::saveProductCategories(const ProductCategory &productCategory, 
 }
 
 /// @brief Save product category list to file with tree-like structure
-bool DataManager::saveProductCategories()
+bool DataManager::saveProductCategories() const
 {
     const string sProductCategoryFilePath = DataStorageSystem::getInstance().getCategoryListFilePath();
     std::ofstream fout(sProductCategoryFilePath);
@@ -300,7 +300,7 @@ bool DataManager::saveProductCategories()
 }
 
 /// @brief Save discount code list to file with csv format
-bool DataManager::saveDiscountCodes()
+bool DataManager::saveDiscountCodes() const
 {
     const string sDiscountCodeFilePath = DataStorageSystem::getInstance().getDiscountCodeListFilePath();
     std::ofstream fout(sDiscountCodeFilePath);
@@ -787,7 +787,7 @@ bool DataManager::loadData()
     return loadProducts() && loadUsers() && loadStores() && loadProductCategories() && loadDiscountCodes();
 }
 
-bool DataManager::saveData()
+bool DataManager::saveData() const
 {
     return saveProducts() && saveUsers() && saveStores() && saveProductCategories() && saveDiscountCodes();
 }

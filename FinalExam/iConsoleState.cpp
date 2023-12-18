@@ -307,7 +307,7 @@ void ProductState::handleInput(Console &console)
     {
         const int iRating = console::inputInteger("Enter rating: ");
         const string sComment = console::inputString("Enter comment: ");
-        Review review(iRating, sComment);
+        const Review review(iRating, sComment);
         console.getProduct()->addReview(review);
         console::printNotification("Review added!");
         return;
@@ -586,7 +586,6 @@ void CheckoutState::handleInput(Console &console)
             console::printNotification("Discount code chosen!");
             return;
         }
-        return;
     }
 
     if (iChoice == 4)
@@ -744,14 +743,12 @@ void ExitState::handleInput(Console &console)
         DataManager::getInstance().saveData();
         console::printSuccess("Data saved!");
         console::printNotification("Exiting...");
-        exit(0);
         return;
     }
 
     if (iChoice == 2)
     {
         console::printNotification("Exiting...");
-        exit(0);
         return;
     }
 }

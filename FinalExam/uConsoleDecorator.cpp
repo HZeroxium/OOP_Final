@@ -4,7 +4,7 @@ namespace console
 {
     void printPrimaryHeader(const string &sHeader)
     {
-        unsigned int iHeaderLength = sHeader.length();
+	    const auto iHeaderLength = static_cast<unsigned int>(sHeader.length());
 
         constexpr unsigned int iHeaderWidth = 80;
         constexpr unsigned int iHeaderPadding = 3;
@@ -18,7 +18,7 @@ namespace console
 
     void printSecondaryHeader(const string &sHeader)
     {
-        unsigned int iHeaderLength = sHeader.length();
+	    const auto iHeaderLength = static_cast<unsigned int>(sHeader.length());
 
         constexpr unsigned int iHeaderWidth = 40;
         constexpr unsigned int iHeaderPadding = 3;
@@ -42,7 +42,7 @@ namespace console
 
     void printOption(const vector<string> &vOptions)
     {
-        const int size = vOptions.size();
+        const auto size = vOptions.size();
         cout << "=> Please choose one of the following options (from 0 to " << size - 1 << "): " << endl;
         for (int i = 0; i < vOptions.size(); i++)
         {
