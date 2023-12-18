@@ -263,7 +263,7 @@ void ProductCategoryState::handleInput(Console &console)
 void ProductState::display()
 {
     console::printPrimaryHeader("Product");
-    const vector<string> vOptions = {"1. Add to cart", "2. View product information", "0. Back"};
+    const vector<string> vOptions = {"1. Add to cart", "2. View product information", "3. Review", "0. Back"};
     console::printOption(vOptions);
 }
 
@@ -300,6 +300,16 @@ void ProductState::handleInput(Console &console)
     {
         console::printNotification("Printing product information...");
         console::printProductInformation(*console.getProduct());
+        return;
+    }
+
+    if (iChoice == 3)
+    {
+        const int iRating = console::inputInteger("Enter rating: ");
+        const string sComment = console::inputString("Enter comment: ");
+        Review review(iRating, sComment);
+        console.getProduct()->addReview(review);
+        console::printNotification("Review added!");
         return;
     }
 }

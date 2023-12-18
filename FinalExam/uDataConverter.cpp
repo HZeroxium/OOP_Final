@@ -124,6 +124,17 @@ string DataConverter::convertDiscountCodeToString(const DiscountCode *discountCo
     return sDiscountCode;
 }
 
+string DataConverter::convertReviewToString(const Review &review)
+{
+    /* Example
+    5,Good product
+    */
+    string sReview = "";
+    sReview += std::to_string(review.getRating()) + ",";
+    sReview += review.getComment() + ",";
+    return sReview;
+}
+
 //******************************************************************************************************
 //************************************ STRING TO DATA CONVERSION METHODS *******************************
 //******************************************************************************************************
@@ -264,4 +275,18 @@ DiscountCode *DataConverter::convertStringToDiscountCode(const string &sDiscount
     }
 
     return pDiscountCode;
+}
+
+Review DataConverter::convertStringToReview(const string &sReview)
+{
+    constexpr char cDelimiter = ',';
+    std::stringstream ss(sReview);
+    string sRating, sComment;
+
+    std::getline(ss, sRating, cDelimiter);
+    std::getline(ss, sComment, cDelimiter);
+
+    const unsigned int uiRating = std::stoi(sRating);
+
+    return Review(uiRating, sComment);
 }

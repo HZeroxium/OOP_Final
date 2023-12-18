@@ -65,12 +65,12 @@ string DataStorageSystem::getCustomerOrderDirectoryPath(const Customer &customer
 
 string DataStorageSystem::getDiscountCodeListFilePath()
 {
-    return getDiscountCodeDirectoryPath() + "/discount_code_list.txt";
+    return getDiscountCodeDirectoryPath() + "/discount_code_list.csv";
 }
 
 string DataStorageSystem::getProductListFilePath()
 {
-    return getProductDirectoryPath() + "/product_list.txt";
+    return getProductDirectoryPath() + "/product_list.csv";
 }
 
 string DataStorageSystem::getCategoryListFilePath()
@@ -80,17 +80,17 @@ string DataStorageSystem::getCategoryListFilePath()
 
 string DataStorageSystem::getStoreListFilePath()
 {
-    return getStoreDirectoryPath() + "/store_list.txt";
+    return getStoreDirectoryPath() + "/store_list.csv";
 }
 
 string DataStorageSystem::getUserListFilePath()
 {
-    return getUserDirectoryPath() + "/user_list.txt";
+    return getUserDirectoryPath() + "/user_list.csv";
 }
 
 string DataStorageSystem::getSpecificProductListFilePath(const Store &store)
 {
-    return getSpecificStoreDirectoryPath(store) + "/product_list.txt";
+    return getSpecificStoreDirectoryPath(store) + "/product_list.csv";
 }
 
 string DataStorageSystem::getShoppingCartFilePath(const Customer &customer)
@@ -101,4 +101,9 @@ string DataStorageSystem::getShoppingCartFilePath(const Customer &customer)
 string DataStorageSystem::getCustomerOrderFilePath(const Customer &customer, const Order &order)
 {
     return getCustomerOrderDirectoryPath(customer) + "/" + order.getOrderCode() + ".txt";
+}
+
+string DataStorageSystem::getProductReviewFilePath(const Product &product)
+{
+    return getProductDirectoryPath() + "/" + product.getName() + "/review.txt";
 }

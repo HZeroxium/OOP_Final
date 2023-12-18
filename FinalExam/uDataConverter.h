@@ -2,7 +2,7 @@
 
 #include "uDataStorage.h"
 #include "iDiscountCode.h"
-
+#include "cReview.h"
 /// @brief Singleton class for converting data between different types to string and vice versa.
 class DataConverter
 {
@@ -20,10 +20,12 @@ public: // Data conversion methods
     static string convertCustomerToString(const Customer &customer);
     static string convertStoreToString(const Store &store);
     static string convertDiscountCodeToString(const DiscountCode *discountCode);
+    static string convertReviewToString(const Review &review);
 
     static Product convertStringToProduct(const string &sProduct);
     static Customer convertStringToCustomer(const string &sUser);
     static Date convertStringToDate(const string &sDate);
     static Store convertStringToStore(const string &sStore);
     static DiscountCode *convertStringToDiscountCode(const string &sDiscountCode);
+    static Review convertStringToReview(const string &sReview);
 };

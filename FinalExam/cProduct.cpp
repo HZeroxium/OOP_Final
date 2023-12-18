@@ -70,6 +70,7 @@ Product::Product(const string &sID, const string &sName, const string &sCategory
     m_dPrice = dPrice;
     m_uiQuantity = uiQuantity;
     m_bIsOnFlashSale = bIsOnFlashSale;
+    m_vReviews = vector<Review>();
 }
 
 Product::Product(const Product &other)
@@ -80,6 +81,7 @@ Product::Product(const Product &other)
     m_dPrice = other.m_dPrice;
     m_uiQuantity = other.m_uiQuantity;
     m_bIsOnFlashSale = other.m_bIsOnFlashSale;
+    m_vReviews = other.m_vReviews;
 }
 
 Product::~Product() = default;
@@ -116,6 +118,11 @@ unsigned int Product::getQuantity() const
 bool Product::getFlashSaleStatus() const
 {
     return m_bIsOnFlashSale;
+}
+
+vector<Review> Product::getReviews() const
+{
+    return m_vReviews;
 }
 
 //******************************************************************************************************
@@ -155,6 +162,11 @@ void Product::setFlashSale(bool bIsOnFlashSale)
     }
 }
 
+void Product::setReviews(const vector<Review> &vReviews)
+{
+    m_vReviews = vReviews;
+}
+
 //******************************************************************************************************
 //********************************************** DISPLAY ***********************************************
 //******************************************************************************************************
@@ -182,4 +194,9 @@ void Product::update(bool bFlashSale)
             std::cout << "!!! FLASH SALE is over !!! Price of " << m_sName << " is now " << m_dPrice << " VND" << std::endl;
         }
     }
+}
+
+void Product::addReview(const Review &review)
+{
+    m_vReviews.push_back(review);
 }

@@ -297,6 +297,30 @@ bool DataManager::saveDiscountCodes()
     return true;
 }
 
+/// @brief Save review list to file with csv format
+bool DataManager::saveReviews(const Product &product)
+{
+    const string sReviewFilePath = DataStorageSystem::getInstance().getProductReviewFilePath(product);
+    std::ofstream fout(sReviewFilePath);
+
+    if (!fout.is_open())
+    {
+        std::cout << "!!!ERROR: Cannot open file " << sReviewFilePath << " to save data" << std::endl;
+        return false;
+    }
+
+    const vector<Review> &vReviews = product.getReviews();
+
+    for (const Review &review : vReviews)
+    {
+        const string sReview = DataConverter::getInstance().convertReviewToString(review);
+        fout << sReview << std::endl;
+    }
+
+    fout.close();
+
+    return true;
+};
 //******************************************************************************************************
 //******************************** LOAD DATA HELPER METHODS ********************************************
 //******************************************************************************************************
@@ -317,6 +341,7 @@ bool DataManager::loadProducts()
     while (std::getline(fin, sProduct))
     {
         Product product = DataConverter::getInstance().convertStringToProduct(sProduct);
+        loadReviews(product);
         m_vProducts.push_back(product);
     }
 
@@ -568,6 +593,28 @@ bool DataManager::loadDiscountCodes()
     return true;
 }
 
+/// @brief Load review list from file with csv format
+bool DataManager::loadReviews(Product &product)
+{
+    const string sReviewFilePath = DataStorageSystem::getInstance().getProductReviewFilePath(product);
+    std::ifstream fin(sReviewFilePath);
+
+    if (!fin.is_open())
+    {
+        std::cout << "!!!ERROR: Cannot open file " << sReviewFilePath << " to load data" << std::endl;
+        return false;
+    }
+
+    string sReview;
+    while (std::getline(fin, sReview))
+    {
+        Review review = DataConverter::getInstance().convertStringToReview(sReview);
+        product.addReview(review);
+    }
+
+    fin.close();
+    return true;
+}
 //******************************************************************************************************
 //************************************** GETTERS *******************************************************
 //******************************************************************************************************

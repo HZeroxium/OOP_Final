@@ -1,0 +1,20 @@
+Laptop
+-Lenovo
+--Thinkpad
+--IdeaPad
+--Legion
+---Legion Pro
+-Dell
+-HP
+-Asus
+TV
+-Samsung
+-LG
+Phone
+-Apple
+--iPhone
+-Samsung
+--Galaxy
+--Note
+--Fold
+--Z

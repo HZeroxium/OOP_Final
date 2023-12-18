@@ -37,6 +37,7 @@ private: // Load data helpers
     static void loadProductCategories(ProductCategory &productCategory, std::ifstream &fin);
     static bool loadProductCategories();
     bool loadDiscountCodes();
+    bool loadReviews(Product &product);
 
 private: // Save data helpers
     bool saveProducts() const;
@@ -47,6 +48,7 @@ private: // Save data helpers
     static void saveProductCategories(const ProductCategory &productCategory, std::ofstream &fout);
     bool saveProductCategories();
     bool saveDiscountCodes();
+    bool saveReviews(const Product &product);
 
 public: // Data management methods
     bool loadData();

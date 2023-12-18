@@ -41,4 +41,5 @@ public: // File methods
     static string getSpecificProductListFilePath(const Store &store);
     static string getShoppingCartFilePath(const Customer &customer);
     static string getCustomerOrderFilePath(const Customer &customer, const Order &order);
+    static string getProductReviewFilePath(const Product &product);
 };
