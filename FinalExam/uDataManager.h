@@ -26,7 +26,7 @@ public: // Singleton Methods
     static DataManager &getInstance();
     DataManager(const DataManager &) = delete;
     void operator=(const DataManager &) = delete;
-    ~DataManager() = default;
+    ~DataManager();
 
 private: // Load data helpers
     bool loadProducts();

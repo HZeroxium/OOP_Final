@@ -105,5 +105,5 @@ string DataStorageSystem::getCustomerOrderFilePath(const Customer &customer, con
 
 string DataStorageSystem::getProductReviewFilePath(const Product &product)
 {
-    return getProductDirectoryPath() + "/" + product.getName() + "/review.txt";
+    return getProductDirectoryPath() + "/" + product.getID() + "/review.txt";
 }

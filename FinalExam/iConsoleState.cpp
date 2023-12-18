@@ -535,6 +535,7 @@ void CheckoutState::handleInput(Console &console)
         }
         console.setCurrentPaymentMethod(pPaymentMethod);
         console::printSuccess("Payment method chosen!");
+        delete pPaymentMethod;
         return;
     }
 
@@ -565,6 +566,7 @@ void CheckoutState::handleInput(Console &console)
 
         console.setCurrentShippingStrategy(pShippingStrategy);
         console::printSuccess("Delivery method chosen!");
+        delete pShippingStrategy;
         return;
     }
 

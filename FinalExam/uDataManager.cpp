@@ -13,6 +13,22 @@ DataManager &DataManager::getInstance()
     return instance;
 }
 
+DataManager::~DataManager()
+{
+    for (User *pUser : m_vUsers)
+    {
+        delete pUser;
+    }
+    for (DiscountCode *pDiscountCode : m_vDiscountCodes)
+    {
+        delete pDiscountCode;
+    }
+
+    m_vUsers.clear();
+    m_vDiscountCodes.clear();
+    std::cout << "DataManager destructor called" << std::endl;
+}
+
 //******************************************************************************************************
 //************************************** GETTERS ********************************************************
 //******************************************************************************************************
@@ -32,6 +48,8 @@ bool DataManager::saveProducts() const
         std::cout << "!!!ERROR: Cannot open file " << sProductFilePath << " to save data" << std::endl;
         return false;
     }
+    // Write header
+    fout << "ProductID,ProductName,Category,Price,Quantity,FlashSale," << std::endl;
 
     for (const Product &product : m_vProducts)
     {
@@ -54,6 +72,9 @@ bool DataManager::saveUsers()
         std::cout << "!!!ERROR: Cannot open file " << sUserFilePath << " to save data" << std::endl;
         return false;
     }
+
+    // Write header
+    fout << "Username,Password,Join date,Fullname,Email,Phone number,Birthday,Gender,Address,Rank," << std::endl;
 
     for (const User *pUser : m_vUsers)
     {
@@ -167,6 +188,9 @@ bool DataManager::saveStores()
         std::cout << "!!!ERROR: Cannot open file " << sStoreFilePath << " to save data" << std::endl;
         return false;
     }
+
+    // Write header
+    fout << "StoreName,JoinDate," << std::endl;
 
     for (const Store &store : m_vStores)
     {
@@ -287,6 +311,9 @@ bool DataManager::saveDiscountCodes()
         return false;
     }
 
+    // Write header
+    fout << "Code, Type, Percentage, MaxAmount, Category," << std::endl;
+
     for (const DiscountCode *pDiscountCode : m_vDiscountCodes)
     {
         const string sDiscountCode = DataConverter::getInstance().convertDiscountCodeToString(pDiscountCode);
@@ -338,6 +365,9 @@ bool DataManager::loadProducts()
     }
 
     string sProduct;
+
+    // Skip header
+    std::getline(fin, sProduct);
     while (std::getline(fin, sProduct))
     {
         Product product = DataConverter::getInstance().convertStringToProduct(sProduct);
@@ -362,6 +392,9 @@ bool DataManager::loadUsers()
     }
 
     string sUser;
+    // Skip header
+    std::getline(fin, sUser);
+
     while (std::getline(fin, sUser))
     {
         Customer customer = DataConverter::getInstance().convertStringToCustomer(sUser);
@@ -469,6 +502,8 @@ bool DataManager::loadStores()
     }
 
     string sStore;
+    // Skip header
+    std::getline(fin, sStore);
     while (std::getline(fin, sStore))
     {
         Store store = DataConverter::getInstance().convertStringToStore(sStore);
@@ -583,6 +618,8 @@ bool DataManager::loadDiscountCodes()
     }
 
     string sDiscountCode;
+    // Skip header
+    std::getline(fin, sDiscountCode);
     while (std::getline(fin, sDiscountCode))
     {
         DiscountCode *pDiscountCode = DataConverter::getInstance().convertStringToDiscountCode(sDiscountCode);

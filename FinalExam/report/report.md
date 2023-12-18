@@ -1,5 +1,29 @@
 # CSC10003 - Final Lab Exam Report
 
+> **Note:** This report is written in Markdown format. To view the report in Markdown format, please use Markdown editor such as [Typora](https://typora.io/) or [Visual Studio Code](https://code.visualstudio.com/) with [Markdown Preview Enhanced](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced) extension.
+
+## Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [1. Introduction](#1-introduction)
+- [2. System Architecture](#2-system-architecture)
+  - [2.1 System Overview](#21-system-overview)
+    - [2.1.1 Source structure](#211-source-structure)
+    - [2.1.2 Data storage system](#212-data-storage-system)
+  - [2.2 UML Class Diagram](#22-uml-class-diagram)
+  - [2.3 Design Patterns](#23-design-patterns)
+    - [2.3.1 Singleton Pattern](#231-singleton-pattern)
+    - [2.3.2 Factory Method Pattern](#232-factory-method-pattern)
+    - [2.3.3 Builder Pattern](#233-builder-pattern)
+    - [2.3.4 Strategy Pattern](#234-strategy-pattern)
+    - [2.3.5 Observer Pattern](#235-observer-pattern)
+    - [2.3.6 Composite Pattern](#236-composite-pattern)
+    - [2.3.7 Iterator Pattern](#237-iterator-pattern)
+    - [2.3.8 State Pattern](#238-state-pattern)
+- [3. Bonus Features](#3-bonus-features)
+  - [3.1 Review and Rating Product](#31-review-and-rating-product)
+  - [3.2 LiveStream Product](#32-livestream-product)
+
 ## 1. Introduction
 
 **Student ID:** 22127154
@@ -112,3 +136,53 @@ State pattern is used to change the behavior of an object based on its state suc
 **State Diagram:**
 
 ![State Diagram](images/22127154_StateDiagram.png)
+
+## 3. Bonus Features
+
+### 3.1 Review and Rating Product
+
+For each product, customer can review and rate it. The review and rating will be saved in `data/product/productID/review.txt` file.
+
+For implementation, `Product` class has `vector<Review>` attribute to store review and rating. `Review` class has `unsigned int rating;` and `string comment;` attribute to store rating and comment.
+
+For asynchronized feature, `DataConverter` add new method `convertReviewToString` and `convertStringToReview` to convert `Review` object to string and vice versa.
+
+Then, `DataManager` add new method `saveReview` and `loadReview` to save and load review data of a product from file.
+
+In `Console` class, `ProductState` add new method `reviewProduct` to allow customer review and rate product.
+
+### 3.2 LiveStream Product
+
+For this feature, I extend `User` class to `StoreOwner` class. `StoreOwner` class has `vector<LiveStream> liveStreams;` attribute to store live stream data.
+
+```cpp
+
+class LiveStream {
+    private:
+        string title;
+        string description;
+        string url;
+        Time startTime;
+        Time endTime;
+        unsigned int viewCount;
+        unsigned int likeCount;
+        unsigned int dislikeCount;
+        vector<Comment> comments;
+    public:
+};
+
+class StoreOwner : public User {
+private:
+    vector<LiveStream> liveStreams;
+public:
+    void startALiveStream();
+};
+```
+
+For asynchronized feature, `DataConverter` add new method `convertLiveStreamToString` and `convertStringToLiveStream` to convert `LiveStream` object to string and vice versa.
+
+Then, `DataManager` add new method `saveLiveStream` and `loadLiveStream` to save and load live stream data of a store from file.
+
+In `Console` class, add new `LiveStreamState` class to allow store owner start a live stream and view live stream of a store.
+
+For `Customer` class, it can view live stream of a store, comment and buy product on it via join live stream feature through `Console` class. It will redirect from `HomeState` to `LiveStreamState`.

@@ -48,6 +48,8 @@ Order::~Order()
 {
     delete m_pCurrentOrderState;
     m_pCurrentOrderState = nullptr;
+    delete m_pShippingStrategy;
+    m_pShippingStrategy = nullptr;
 }
 
 //******************************************************************************************************
