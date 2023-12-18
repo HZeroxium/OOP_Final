@@ -22,7 +22,7 @@ public: // Constructors & Destructor
     Product();
     Product(const string &sID, const string &sName, const string &sCategory, double dPrice, unsigned int uiQuantity, bool bIsOnFlashSale = false);
     Product(const Product &other);
-    ~Product();
+    ~Product() override;
 
 public: // Getters
     string getID() const;

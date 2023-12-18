@@ -31,5 +31,5 @@ public: // Setters
 
 public: // Add & Remove
     bool addProduct(Product *pProduct);
-    bool removeProduct(Product *pProduct);
+    bool removeProduct(const Product *pProduct);
 };

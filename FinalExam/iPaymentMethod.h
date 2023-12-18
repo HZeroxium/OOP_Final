@@ -23,7 +23,7 @@ public: // Constructors & Destructor
     CreditCardPayment();
     CreditCardPayment(const string &sCardNumber, const string &sCVC, const string &sName, const Date &expirationDate);
     CreditCardPayment(const CreditCardPayment &);
-    ~CreditCardPayment() = default;
+    ~CreditCardPayment() override = default;
 
 public: // Getters
     string getCardNumber() const;
@@ -51,7 +51,7 @@ public: // Constructors & Destructor
     MomoPayment();
     MomoPayment(const string &sPhoneNumber);
     MomoPayment(const MomoPayment &);
-    ~MomoPayment() = default;
+    ~MomoPayment() override = default;
 
 public: // Getters
     string getPhoneNumber() const;

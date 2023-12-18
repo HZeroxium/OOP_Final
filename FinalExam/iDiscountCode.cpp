@@ -13,7 +13,7 @@ OverallDiscountCode::OverallDiscountCode(double percentage, double maxAmount)
 
 double OverallDiscountCode::applyDiscount(const Order &order) const
 {
-    double dDiscount = std::min(order.getTotalPrice() * m_dPercentage, m_dMaxAmount);
+	const double dDiscount = std::min(order.getTotalPrice() * m_dPercentage, m_dMaxAmount);
     return dDiscount;
 }
 
@@ -54,11 +54,11 @@ BirthdayDiscountCode::BirthdayDiscountCode(double percentage, double maxAmount)
 
 double BirthdayDiscountCode::applyDiscount(const Order &order) const
 {
-    string orderDate = order.getOrderDate().toString();
-    string birthday = UserManager::getInstance().getCurrentUser()->getBirthDate().toString();
+	const string orderDate = order.getOrderDate().toString();
+	const string birthday = UserManager::getInstance().getCurrentUser()->getBirthDate().toString();
     if (orderDate.substr(0, 5) == birthday.substr(0, 5))
     {
-        double dDiscount = std::min(order.getTotalPrice() * m_dPercentage, m_dMaxAmount);
+	    const double dDiscount = std::min(order.getTotalPrice() * m_dPercentage, m_dMaxAmount);
         return dDiscount;
     }
 }

@@ -4,9 +4,9 @@
 //======================================================================================================
 //======================================== PRODUCT CATEGORY ============================================
 
-ProductCategory::ProductCategory()
+ProductCategory::ProductCategory(const string& sName)
 {
-    m_sName = "";
+    m_sName = sName;
 }
 
 string ProductCategory::getName() const
@@ -14,13 +14,19 @@ string ProductCategory::getName() const
     return m_sName;
 }
 
+void ProductCategory::setName(const string &sName)
+{
+	m_sName = sName;
+}
+
+
+
 //======================================================================================================
 //======================================== LEAF PRODUCT CATEGORY =======================================
 //======================================================================================================
 
-LeafProductCategory::LeafProductCategory(const string &sCategoryName)
+LeafProductCategory::LeafProductCategory(const string &sCategoryName): ProductCategory(sCategoryName)
 {
-    m_sName = sCategoryName;
 }
 
 LeafProductCategory::~LeafProductCategory()
@@ -37,9 +43,8 @@ void LeafProductCategory::display() const
 //==================================== COMPOSITE PRODUCT CATEGORY ======================================
 //======================================================================================================
 
-CompositeProductCategory::CompositeProductCategory(const string &sCategoryName)
+CompositeProductCategory::CompositeProductCategory(const string &sCategoryName): ProductCategory(sCategoryName)
 {
-    m_sName = sCategoryName;
 }
 
 CompositeProductCategory::~CompositeProductCategory()
@@ -68,7 +73,7 @@ bool CompositeProductCategory::addSubCategory(ProductCategory *pProductCategory)
     m_vProductCategories.push_back(pProductCategory);
 }
 
-bool CompositeProductCategory::removeSubCategory(ProductCategory *pProductCategory)
+bool CompositeProductCategory::removeSubCategory(const ProductCategory *pProductCategory)
 {
     // Find if the category exists
     for (auto it = m_vProductCategories.begin(); it != m_vProductCategories.end(); ++it)

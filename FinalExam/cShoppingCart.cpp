@@ -43,7 +43,7 @@ void ShoppingCart::removeProduct(Product *pProduct)
     // Find if the product exists
     for (auto it = m_vProducts.begin(); it != m_vProducts.end(); ++it)
     {
-        if ((*it).first->getName() == pProduct->getName())
+        if (it->first->getName() == pProduct->getName())
         {
             m_vProducts.erase(it);
             return;
@@ -124,8 +124,8 @@ bool ShoppingCart::loadCurrentUsersShoppingCart(User *pUser)
     // Check if the file exists
     if (!fin.is_open())
     {
-        return;
         std::cerr << "Cannot open file " << sCartFilePath << std::endl;
+        return false;
     }
 
     // Read the file

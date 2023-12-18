@@ -9,6 +9,9 @@
 
 #include "cConsole.h"
 
+// Forward declaration of the Console class
+class Console;
+
 /// @brief State interface of the State Pattern
 class ConsoleState
 {
@@ -68,14 +71,6 @@ public:
 
 /// @brief Concrete state of the State Pattern for Customer screen
 class CustomerState : public ConsoleState
-{
-public:
-    void display() override;
-    void handleInput(Console &console) override;
-};
-
-/// @brief Concrete state of the State Pattern for Order screen
-class OrderState : public ConsoleState
 {
 public:
     void display() override;

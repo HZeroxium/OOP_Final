@@ -89,7 +89,7 @@ bool Store::addProduct(Product *pProduct)
     m_vProducts.push_back(pProduct);
 }
 
-bool Store::removeProduct(Product *pProduct)
+bool Store::removeProduct(const Product *pProduct)
 {
     // Find if the product exists
     for (auto it = m_vProducts.begin(); it != m_vProducts.end(); ++it)

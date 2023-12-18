@@ -119,7 +119,7 @@ void Product::setFlashSale(bool bIsOnFlashSale)
 
 void Product::update(bool bFlashSale)
 {
-    bool isSame = (m_bIsOnFlashSale == bFlashSale);
+	const bool isSame = (m_bIsOnFlashSale == bFlashSale);
     if (!isSame)
     {
         m_bIsOnFlashSale = bFlashSale;

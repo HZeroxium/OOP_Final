@@ -2,10 +2,8 @@
 
 #include "cProduct.h"
 #include "cOrder.h"
-#include "cShoppingCart.h"
 #include "cUser.h"
 #include "cDate.h"
-#include "iCustomerRank.h"
 #include "iDiscountCode.h"
 #include "cStore.h"
 #include "iProductCategory.h"
@@ -35,18 +33,18 @@ private: // Load data helpers
     bool loadUsers();
     bool loadOrders(const Customer &customer);
     bool loadStores();
-    bool loadStoreProductList(Store &store);
-    void loadProductCategories(ProductCategory &productCategory, std::ifstream &fin);
-    bool loadProductCategories();
+    static bool loadStoreProductList(Store &store);
+    static void loadProductCategories(ProductCategory &productCategory, std::ifstream &fin);
+    static bool loadProductCategories();
     bool loadDiscountCodes();
 
 private: // Save data helpers
-    bool saveProducts();
+    bool saveProducts() const;
     bool saveUsers();
-    bool saveOrders(const Customer &customer);
+    static bool saveOrders(const Customer &customer);
     bool saveStores();
     bool saveStoreProductList(const Store &store);
-    void saveProductCategories(const ProductCategory &productCategory, std::ofstream &fout);
+    static void saveProductCategories(const ProductCategory &productCategory, std::ofstream &fout);
     bool saveProductCategories();
     bool saveDiscountCodes();
 
@@ -55,8 +53,8 @@ public: // Data management methods
     bool saveData();
 
 public: // Singleton Getters
-    DataConverter &getDataConverter();
-    DataStorageSystem &getDataStorageSystem();
+    static DataConverter &getDataConverter();
+    static DataStorageSystem &getDataStorageSystem();
 
 public: // Getters
     vector<Product> &getProducts();

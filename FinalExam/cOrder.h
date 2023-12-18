@@ -70,7 +70,7 @@ public: // Actions
 
 public: // Methods
     void addProduct(Product *pProduct, unsigned int uiQuantity);
-    void removeProduct(Product *pProduct);
+    void removeProduct(const Product *pProduct);
 };
 
 /// @brief Concrete state class of the State Pattern

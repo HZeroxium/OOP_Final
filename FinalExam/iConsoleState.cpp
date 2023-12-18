@@ -88,7 +88,7 @@ void LoginState::handleInput(Console &console)
 void HomeState::display()
 {
     console::printPrimaryHeader("Home Page");
-    vector<string> vOptions = {"1. Find a product", "2. Find a store", "3. View product by category", "4. View shopping cart", "5. View customer information", "0. Logout"};
+    const vector<string> vOptions = {"1. Find a product", "2. Find a store", "3. View product by category", "4. View shopping cart", "5. View customer information", "0. Logout"};
     console::printOption(vOptions);
 }
 
@@ -137,7 +137,7 @@ void HomeState::handleInput(Console &console)
 
     if (iChoice == 2)
     {
-        string sStoreName = console::inputString("Enter store name: ");
+	    const string sStoreName = console::inputString("Enter store name: ");
         Store *pStore = DataManager::getInstance().getStore(sStoreName);
         if (pStore == nullptr)
         {
@@ -156,7 +156,7 @@ void HomeState::handleInput(Console &console)
 
     if (iChoice == 3)
     {
-        string sCategoryName = console::inputString("Enter category name: ");
+	    const string sCategoryName = console::inputString("Enter category name: ");
         ProductCategory *pProductCategory = DataManager::getInstance().getProductCategory(sCategoryName);
         if (pProductCategory == nullptr)
         {
@@ -196,7 +196,7 @@ void HomeState::handleInput(Console &console)
 void ProductCategoryState::display()
 {
     console::printPrimaryHeader("Product Category");
-    vector<string> vOptions = {"1. View all products", "2. View products by name", "0. Back"};
+    const vector<string> vOptions = {"1. View all products", "2. View products by name", "0. Back"};
     console::printOption(vOptions);
 }
 
@@ -222,7 +222,7 @@ void ProductCategoryState::handleInput(Console &console)
 
     if (iChoice == 1)
     {
-        vector<Product> &vProducts = DataManager::getInstance().getProducts();
+	    const vector<Product> &vProducts = DataManager::getInstance().getProducts();
         vector<Product> vProductsByCategory;
         for (int i = 0; i < vProducts.size(); i++)
         {
@@ -237,7 +237,7 @@ void ProductCategoryState::handleInput(Console &console)
 
     if (iChoice == 2)
     {
-        string sProductName = console::inputString("Enter product name: ");
+	    const string sProductName = console::inputString("Enter product name: ");
         Product *pProduct = DataManager::getInstance().getProductByCategory(sProductName, console.getProductCategory()->getName());
         if (pProduct == nullptr)
         {
@@ -262,7 +262,7 @@ void ProductCategoryState::handleInput(Console &console)
 void ProductState::display()
 {
     console::printPrimaryHeader("Product");
-    vector<string> vOptions = {"1. Add to cart", "2. View product information", "0. Back"};
+    const vector<string> vOptions = {"1. Add to cart", "2. View product information", "0. Back"};
     console::printOption(vOptions);
 }
 
@@ -288,7 +288,7 @@ void ProductState::handleInput(Console &console)
 
     if (iChoice == 1)
     {
-        int iQuantity = console::inputInteger("Enter quantity: ");
+	    const int iQuantity = console::inputInteger("Enter quantity: ");
         console.getShoppingCart()->addProduct(console.getProduct(), iQuantity);
         console::printNotification("Adding product to cart...");
         console::printSuccess("Product added to cart!");
@@ -310,7 +310,7 @@ void ProductState::handleInput(Console &console)
 void StoreState::display()
 {
     console::printPrimaryHeader("Store");
-    vector<string> vOptions = {"1. View all products", "2. View products by name", "0. Back"};
+    const vector<string> vOptions = {"1. View all products", "2. View products by name", "0. Back"};
     console::printOption(vOptions);
 }
 
@@ -337,7 +337,7 @@ void StoreState::handleInput(Console &console)
     if (iChoice == 1)
     {
         Store *pStore = console.getStore();
-        vector<Product *> &vProducts = pStore->getProducts();
+        const vector<Product *> &vProducts = pStore->getProducts();
         vector<Product> vProductsByStore;
         for (int i = 0; i < vProducts.size(); i++)
         {
@@ -350,7 +350,7 @@ void StoreState::handleInput(Console &console)
 
     if (iChoice == 2)
     {
-        string sProductName = console::inputString("Enter product name: ");
+	    const string sProductName = console::inputString("Enter product name: ");
         Product *pProduct = console.getStore()->getProduct(sProductName);
         if (pProduct == nullptr)
         {
@@ -375,7 +375,7 @@ void StoreState::handleInput(Console &console)
 void ShoppingCartState::display()
 {
     console::printPrimaryHeader("Shopping Cart");
-    vector<string> vOptions = {"1. View all products", "2. Increase quantity of product", "3. Decrease quantity of product", "4. Remove product", "5. Checkout", "0. Back"};
+    const vector<string> vOptions = {"1. View all products", "2. Increase quantity of product", "3. Decrease quantity of product", "4. Remove product", "5. Checkout", "0. Back"};
     console::printOption(vOptions);
 }
 
@@ -414,8 +414,8 @@ void ShoppingCartState::handleInput(Console &console)
 
     if (iChoice == 2)
     {
-        string sProductName = console::inputString("Enter product name: ");
-        int iQuantity = console::inputInteger("Enter quantity: ");
+	    const string sProductName = console::inputString("Enter product name: ");
+	    const int iQuantity = console::inputInteger("Enter quantity: ");
         console.getShoppingCart()->increaseQuantity(sProductName, iQuantity);
         console::printNotification("Increasing quantity of product...");
         console::printSuccess("Quantity increased!");
@@ -424,8 +424,8 @@ void ShoppingCartState::handleInput(Console &console)
 
     if (iChoice == 3)
     {
-        string sProductName = console::inputString("Enter product name: ");
-        int iQuantity = console::inputInteger("Enter quantity: ");
+	    const string sProductName = console::inputString("Enter product name: ");
+	    const int iQuantity = console::inputInteger("Enter quantity: ");
         console.getShoppingCart()->decreaseQuantity(sProductName, iQuantity);
         console::printNotification("Decreasing quantity of product...");
         console::printSuccess("Quantity decreased!");
@@ -434,7 +434,7 @@ void ShoppingCartState::handleInput(Console &console)
 
     if (iChoice == 4)
     {
-        string sProductName = console::inputString("Enter product name: ");
+	    const string sProductName = console::inputString("Enter product name: ");
         Product *pProduct = console.getShoppingCart()->findProduct(sProductName);
         if (pProduct == nullptr)
         {
@@ -458,7 +458,7 @@ void ShoppingCartState::handleInput(Console &console)
         {
             if (pProduct->getQuantity() < uiQuantity)
             {
-                string sError = "Not enough quantity of " + pProduct->getName() + "!";
+	            const string sError = "Not enough quantity of " + pProduct->getName() + "!";
                 console::printError(sError);
                 return;
             }
@@ -476,7 +476,7 @@ void ShoppingCartState::handleInput(Console &console)
 void CheckoutState::display()
 {
     console::printPrimaryHeader("Checkout");
-    vector<string> vOptions = {"1. Choose payment method", "2. Choose delivery method", "3. Choose discount code", "4. Confirm", "0. Back"};
+    const vector<string> vOptions = {"1. Choose payment method", "2. Choose delivery method", "3. Choose discount code", "4. Confirm", "0. Back"};
     console::printOption(vOptions);
 }
 
@@ -653,7 +653,7 @@ void CheckoutState::handleInput(Console &console)
 void CustomerState::display()
 {
     console::printPrimaryHeader("Customer Information");
-    vector<string> vOptions = {"1. View information", "2. View Shopping Cart", "0. Back"};
+    const vector<string> vOptions = {"1. View information", "2. View Shopping Cart", "0. Back"};
     console::printOption(vOptions);
 }
 
@@ -701,7 +701,7 @@ void CustomerState::handleInput(Console &console)
 void ExitState::display()
 {
     console::printPrimaryHeader("Exit");
-    vector<string> vOptions = {"1. Save and exit", "2. Exit without saving", "0. Back"};
+    const vector<string> vOptions = {"1. Save and exit", "2. Exit without saving", "0. Back"};
     console::printOption(vOptions);
 }
 

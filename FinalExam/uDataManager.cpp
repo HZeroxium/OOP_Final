@@ -13,12 +13,6 @@ DataManager &DataManager::getInstance()
     return instance;
 }
 
-DataManager &DataManager::getInstance()
-{
-    static DataManager instance;
-    return instance;
-}
-
 //******************************************************************************************************
 //************************************** GETTERS ********************************************************
 //******************************************************************************************************
@@ -38,7 +32,7 @@ DataStorageSystem &DataManager::getDataStorageSystem()
 //******************************************************************************************************
 
 /// @brief Save product list to file with csv format
-bool DataManager::saveProducts()
+bool DataManager::saveProducts() const
 {
     const string sProductFilePath = getDataStorageSystem().getProductListFilePath();
     std::ofstream fout(sProductFilePath);
@@ -250,7 +244,7 @@ void DataManager::saveProductCategories(const ProductCategory &productCategory, 
     // Remove const-quanlifier to call getSubCategories()
     ProductCategory &productCategoryRef = const_cast<ProductCategory &>(productCategory);
     // Check if product category has sub-categories
-    CompositeProductCategory *pCompositeProductCategory = dynamic_cast<CompositeProductCategory *>(&productCategoryRef);
+    const CompositeProductCategory *pCompositeProductCategory = dynamic_cast<CompositeProductCategory *>(&productCategoryRef);
     if (pCompositeProductCategory)
     {
         ++iLevel;
@@ -408,13 +402,13 @@ bool DataManager::loadOrders(const Customer &customer)
             break;
         }
 
-        Order order;
-        order.setOrderCode(sOrderCode);
-        order.setOrderDate(orderDate);
-        order.setCurrentOrderState(pOrderState);
-        order.setQuantity(uiQuantity);
-        order.setTotalPrice(dTotalPrice);
-        order.setFinalPrice(dFinalPrice);
+        Order newOrder;
+        newOrder.setOrderCode(sOrderCode);
+        newOrder.setOrderDate(orderDate);
+        newOrder.setCurrentOrderState(pOrderState);
+        newOrder.setQuantity(uiQuantity);
+        newOrder.setTotalPrice(dTotalPrice);
+        newOrder.setFinalPrice(dFinalPrice);
 
         string sProductQuantity;
         std::getline(fin, sProductQuantity);
@@ -430,7 +424,7 @@ bool DataManager::loadOrders(const Customer &customer)
             {
                 if (product.getID() == sProductID)
                 {
-                    order.addProduct(&product, std::stoi(sQuantity));
+                    newOrder.addProduct(&product, std::stoi(sQuantity));
                     break;
                 }
             }
@@ -536,7 +530,7 @@ void DataManager::loadProductCategories(ProductCategory &productCategory, std::i
     }
 
     // Check if product category has sub-categories
-    CompositeProductCategory *pCompositeProductCategory = dynamic_cast<CompositeProductCategory *>(&productCategoryRef);
+    const CompositeProductCategory *pCompositeProductCategory = dynamic_cast<CompositeProductCategory *>(&productCategoryRef);
     if (pCompositeProductCategory)
     {
         const vector<ProductCategory *> &vSubCategories = pCompositeProductCategory->getSubCategories();

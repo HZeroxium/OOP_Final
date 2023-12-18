@@ -25,9 +25,7 @@ Date::Date(const Date &other)
     m_uiYear = other.m_uiYear;
 }
 
-Date::~Date()
-{
-}
+Date::~Date() = default;
 
 //******************************************************************************************************
 //********************************************** GETTERS ***********************************************
@@ -51,9 +49,9 @@ unsigned int Date::getYear() const
 string Date::toString() const
 {
     // If the day or month is less than 10, add a 0 before the number
-    string sDay = m_uiDay < 10 ? "0" + std::to_string(m_uiDay) : std::to_string(m_uiDay);
-    string sMonth = m_uiMonth < 10 ? "0" + std::to_string(m_uiMonth) : std::to_string(m_uiMonth);
-    string sYear = std::to_string(m_uiYear);
+    const string sDay = m_uiDay < 10 ? "0" + std::to_string(m_uiDay) : std::to_string(m_uiDay);
+    const string sMonth = m_uiMonth < 10 ? "0" + std::to_string(m_uiMonth) : std::to_string(m_uiMonth);
+    const string sYear = std::to_string(m_uiYear);
 
     return sDay + "/" + sMonth + "/" + sYear;
 }

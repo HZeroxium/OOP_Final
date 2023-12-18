@@ -25,7 +25,7 @@ public: // Singleton Methods
     static ShoppingCart &getInstance();
     ShoppingCart(const ShoppingCart &) = delete;
     void operator=(const ShoppingCart &) = delete;
-    ~ShoppingCart() = default;
+    ~ShoppingCart() override = default;
 
 public: // Shopping cart methods
     ProductIterator *createIterator() override;

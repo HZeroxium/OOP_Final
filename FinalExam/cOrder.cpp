@@ -172,12 +172,12 @@ void Order::addProduct(Product *pProduct, unsigned int uiQuantity)
     // Find if the product already exists
     for (auto it = m_vProducts.begin(); it != m_vProducts.end(); ++it)
     {
-        if ((*it).first->getName() == pProduct->getName())
+        if (it->first->getName() == pProduct->getName())
         {
             // If it does, add the quantity of the new product to the existing product
-            const unsigned int uiOldQuantity = (*it).second;
+            const unsigned int uiOldQuantity = it->second;
             const unsigned int uiNewQuantity = uiQuantity;
-            (*it).second = uiOldQuantity + uiNewQuantity;
+            it->second = uiOldQuantity + uiNewQuantity;
             return;
         }
     }
@@ -186,12 +186,12 @@ void Order::addProduct(Product *pProduct, unsigned int uiQuantity)
     m_vProducts.push_back(pair<Product *, unsigned int>(pProduct, uiQuantity));
 }
 
-void Order::removeProduct(Product *pProduct)
+void Order::removeProduct(const Product *pProduct)
 {
     // Find if the product exists
     for (auto it = m_vProducts.begin(); it != m_vProducts.end(); ++it)
     {
-        if ((*it).first->getName() == pProduct->getName())
+        if (it->first->getName() == pProduct->getName())
         {
             // If it does, remove the product from the list
             m_vProducts.erase(it);

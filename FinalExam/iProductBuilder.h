@@ -41,6 +41,6 @@ private:
 
 public:
     ProductDirector(ProductBuilder *pProductBuilder);
-    void makeProduct(const string &sName, const string &sCategory, double dPrice, unsigned int uiQuantity);
-    Product getProduct();
+    void makeProduct(const string &sName, const string &sCategory, double dPrice, unsigned int uiQuantity) const;
+    Product getProduct() const;
 };

@@ -22,6 +22,7 @@ protected:
     vector<Product *> m_vProducts; ///< List of products in the category
 
 public:
+    ProductCategory(const string& sName);
     void setName(const string &sName);
     string getName() const;
     virtual ~ProductCategory() = default;
@@ -33,7 +34,7 @@ class LeafProductCategory : public ProductCategory
 {
 public: // Constructors & Destructor
     LeafProductCategory(const string &sName);
-    ~LeafProductCategory();
+    ~LeafProductCategory() override;
 
 public: // Display
     void display() const override;
@@ -47,7 +48,7 @@ private:
 
 public: // Constructors & Destructor
     CompositeProductCategory(const string &sName);
-    ~CompositeProductCategory();
+    ~CompositeProductCategory() override;
 
 public: // Display
     const vector<ProductCategory *> &getSubCategories() const;
@@ -55,5 +56,5 @@ public: // Display
 
 public: // Add & Remove
     bool addSubCategory(ProductCategory *pProductCategory);
-    bool removeSubCategory(ProductCategory *pProductCategory);
+    bool removeSubCategory(const ProductCategory *pProductCategory);
 };

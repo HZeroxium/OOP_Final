@@ -213,9 +213,9 @@ Date DataConverter::convertStringToDate(const string &sDate)
     std::getline(ss, sMonth, cDelimiter);
     std::getline(ss, sYear, cDelimiter);
 
-    unsigned int uiDay = std::stoi(sDay);
-    unsigned int uiMonth = std::stoi(sMonth);
-    unsigned int uiYear = std::stoi(sYear);
+    const unsigned int uiDay = std::stoi(sDay);
+    const unsigned int uiMonth = std::stoi(sMonth);
+    const unsigned int uiYear = std::stoi(sYear);
 
     return Date(uiDay, uiMonth, uiYear);
 }
@@ -229,7 +229,7 @@ Store DataConverter::convertStringToStore(const string &sStore)
     std::getline(ss, sName, cDelimiter);
     std::getline(ss, sJoinDate, cDelimiter);
 
-    Date joinDate = convertStringToDate(sJoinDate);
+    const Date joinDate = convertStringToDate(sJoinDate);
 
     return Store(sName, joinDate);
 }
@@ -238,7 +238,7 @@ DiscountCode *DataConverter::convertStringToDiscountCode(const string &sDiscount
 {
     constexpr char cDelimiter = ',';
     std::stringstream ss(sDiscountCode);
-    string sType, sCategory, sCode;
+    string sType, sCode;
     int iPercentage, iMaxAmount;
 
     std::getline(ss, sCode, cDelimiter);
@@ -255,7 +255,8 @@ DiscountCode *DataConverter::convertStringToDiscountCode(const string &sDiscount
     }
     else if (sType == "category")
     {
-        std::getline(ss, sCategory, cDelimiter);
+	    string sCategory;
+	    std::getline(ss, sCategory, cDelimiter);
         pDiscountCode = new CategoryDiscountCode(iPercentage, iMaxAmount, sCategory);
     }
     else if (sType == "birthday")

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "cProduct.h"
+#include "cUser.h"
 
 using std::cerr;
 using std::cout;

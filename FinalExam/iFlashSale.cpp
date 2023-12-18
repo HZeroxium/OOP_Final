@@ -21,7 +21,7 @@ void FlashSale::removeObserver(Observer *observer)
 
 void FlashSale::notifyObservers()
 {
-    for (auto observer : m_vObservers)
+    for (const auto observer : m_vObservers)
     {
         observer->update(this->m_bIsOnFlashSale);
     }

@@ -20,6 +20,8 @@ public:
     virtual ~Subject() = default;
 };
 
+/// @brief Concrete implementation of Product class
+
 /// @brief Concrete implementation of FlashSale class
 class FlashSale : public Subject
 {

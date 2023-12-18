@@ -38,7 +38,7 @@ ProductDirector::ProductDirector(ProductBuilder *pProductBuilder)
     m_pProductBuilder = pProductBuilder;
 }
 
-void ProductDirector::makeProduct(const string &sName, const string &sCategory, double dPrice, unsigned int uiQuantity)
+void ProductDirector::makeProduct(const string &sName, const string &sCategory, double dPrice, unsigned int uiQuantity) const
 {
     m_pProductBuilder->buildName(sName);
     m_pProductBuilder->buildCategory(sCategory);
@@ -46,7 +46,7 @@ void ProductDirector::makeProduct(const string &sName, const string &sCategory, 
     m_pProductBuilder->buildQuantity(uiQuantity);
 }
 
-Product ProductDirector::getProduct()
+Product ProductDirector::getProduct() const
 {
     return m_pProductBuilder->getProduct();
 }
