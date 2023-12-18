@@ -4,47 +4,60 @@ namespace console
 {
     void printPrimaryHeader(const string &sHeader)
     {
+        unsigned int iHeaderLength = sHeader.length();
+
+        constexpr unsigned int iHeaderWidth = 80;
+        constexpr unsigned int iHeaderPadding = 3;
+        const unsigned int remainingWidthPerSide = (iHeaderWidth - iHeaderLength - iHeaderPadding) / 2;
+
         cout << endl;
-        cout << "========================================" << endl;
-        cout << sHeader << endl;
-        cout << "========================================" << endl;
+        cout << string(iHeaderWidth, '=') << endl;
+        cout << string(remainingWidthPerSide, '=') << " " << sHeader << " " << string(remainingWidthPerSide + 1, '=') << endl;
+        cout << string(iHeaderWidth, '=') << endl;
     }
 
     void printSecondaryHeader(const string &sHeader)
     {
+        unsigned int iHeaderLength = sHeader.length();
+
+        constexpr unsigned int iHeaderWidth = 40;
+        constexpr unsigned int iHeaderPadding = 3;
+        const unsigned int remainingWidthPerSide = (iHeaderWidth - iHeaderLength - iHeaderPadding) / 2;
+
         cout << endl;
-        cout << "----------------------------------------" << endl;
-        cout << sHeader << endl;
-        cout << "----------------------------------------" << endl;
+        cout << string(iHeaderWidth, '-') << endl;
+        cout << string(remainingWidthPerSide, '-') << sHeader << string(remainingWidthPerSide + 1, '-') << endl;
+        cout << string(iHeaderWidth, '-') << endl;
     }
 
     void printError(const string &sError)
     {
-        cerr << "Error: " << sError << endl;
+        cerr << "=> !!! ERROR: " << sError << " !!!" << endl;
     }
 
     void printSuccess(const string &sSuccess)
     {
-        cout << "Success: " << sSuccess << endl;
+        cout << "=> *** SUCCESS: " << sSuccess << " ***" << endl;
     }
 
     void printOption(const vector<string> &vOptions)
     {
-        cout << "Options: " << endl;
+        const int size = vOptions.size();
+        cout << "=> Please choose one of the following options (from 0 to " << size - 1 << "): " << endl;
         for (int i = 0; i < vOptions.size(); i++)
         {
-            cout << i + 1 << ". " << vOptions[i] << endl;
+            cout << "--> " << vOptions[i] << endl;
         }
     }
 
     void printNotification(const string &sNotification)
     {
-        cout << "Notification: " << sNotification << endl;
+        cout << "#---> NOTIFICATION: " << sNotification << " <---#" << endl;
     }
 
     void printWarning(const string &sWarning)
     {
-        cout << "Warning: " << sWarning << endl;
+        cout << "=> ### WARNING: " << sWarning << " ###" << endl;
     }
 
     void printProductList(const vector<Product> &vProducts)

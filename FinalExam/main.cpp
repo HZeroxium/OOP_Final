@@ -3,13 +3,14 @@
 
 int main()
 {
-    DataManager &dataManager = DataManager::getInstance();
-    dataManager.loadData();
+    // Load all data
+    DataManager::getInstance().loadData();
 
-    Console &console = Console::getInstance();
-    console.run();
+    // Run the console
+    Console::getInstance().run();
 
-    dataManager.saveData();
+    // Save all data
+    DataManager::getInstance().saveData();
 
     return 0;
 }

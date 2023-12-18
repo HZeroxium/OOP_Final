@@ -12,6 +12,7 @@ using std::cin;
 
 void LoginState::display()
 {
+    console::printPrimaryHeader("Welcome to the Online Shopping System");
     console::printPrimaryHeader("Login");
     console::printOption({"1. Login", "2. Register", "0. Exit"});
 }
@@ -137,7 +138,7 @@ void HomeState::handleInput(Console &console)
 
     if (iChoice == 2)
     {
-	    const string sStoreName = console::inputString("Enter store name: ");
+        const string sStoreName = console::inputString("Enter store name: ");
         Store *pStore = DataManager::getInstance().getStore(sStoreName);
         if (pStore == nullptr)
         {
@@ -156,7 +157,7 @@ void HomeState::handleInput(Console &console)
 
     if (iChoice == 3)
     {
-	    const string sCategoryName = console::inputString("Enter category name: ");
+        const string sCategoryName = console::inputString("Enter category name: ");
         ProductCategory *pProductCategory = DataManager::getInstance().getProductCategory(sCategoryName);
         if (pProductCategory == nullptr)
         {
@@ -222,7 +223,7 @@ void ProductCategoryState::handleInput(Console &console)
 
     if (iChoice == 1)
     {
-	    const vector<Product> &vProducts = DataManager::getInstance().getProducts();
+        const vector<Product> &vProducts = DataManager::getInstance().getProducts();
         vector<Product> vProductsByCategory;
         for (int i = 0; i < vProducts.size(); i++)
         {
@@ -237,7 +238,7 @@ void ProductCategoryState::handleInput(Console &console)
 
     if (iChoice == 2)
     {
-	    const string sProductName = console::inputString("Enter product name: ");
+        const string sProductName = console::inputString("Enter product name: ");
         Product *pProduct = DataManager::getInstance().getProductByCategory(sProductName, console.getProductCategory()->getName());
         if (pProduct == nullptr)
         {
@@ -288,7 +289,7 @@ void ProductState::handleInput(Console &console)
 
     if (iChoice == 1)
     {
-	    const int iQuantity = console::inputInteger("Enter quantity: ");
+        const int iQuantity = console::inputInteger("Enter quantity: ");
         console.getShoppingCart()->addProduct(console.getProduct(), iQuantity);
         console::printNotification("Adding product to cart...");
         console::printSuccess("Product added to cart!");
@@ -350,7 +351,7 @@ void StoreState::handleInput(Console &console)
 
     if (iChoice == 2)
     {
-	    const string sProductName = console::inputString("Enter product name: ");
+        const string sProductName = console::inputString("Enter product name: ");
         Product *pProduct = console.getStore()->getProduct(sProductName);
         if (pProduct == nullptr)
         {
@@ -414,8 +415,8 @@ void ShoppingCartState::handleInput(Console &console)
 
     if (iChoice == 2)
     {
-	    const string sProductName = console::inputString("Enter product name: ");
-	    const int iQuantity = console::inputInteger("Enter quantity: ");
+        const string sProductName = console::inputString("Enter product name: ");
+        const int iQuantity = console::inputInteger("Enter quantity: ");
         console.getShoppingCart()->increaseQuantity(sProductName, iQuantity);
         console::printNotification("Increasing quantity of product...");
         console::printSuccess("Quantity increased!");
@@ -424,8 +425,8 @@ void ShoppingCartState::handleInput(Console &console)
 
     if (iChoice == 3)
     {
-	    const string sProductName = console::inputString("Enter product name: ");
-	    const int iQuantity = console::inputInteger("Enter quantity: ");
+        const string sProductName = console::inputString("Enter product name: ");
+        const int iQuantity = console::inputInteger("Enter quantity: ");
         console.getShoppingCart()->decreaseQuantity(sProductName, iQuantity);
         console::printNotification("Decreasing quantity of product...");
         console::printSuccess("Quantity decreased!");
@@ -434,7 +435,7 @@ void ShoppingCartState::handleInput(Console &console)
 
     if (iChoice == 4)
     {
-	    const string sProductName = console::inputString("Enter product name: ");
+        const string sProductName = console::inputString("Enter product name: ");
         Product *pProduct = console.getShoppingCart()->findProduct(sProductName);
         if (pProduct == nullptr)
         {
@@ -458,7 +459,7 @@ void ShoppingCartState::handleInput(Console &console)
         {
             if (pProduct->getQuantity() < uiQuantity)
             {
-	            const string sError = "Not enough quantity of " + pProduct->getName() + "!";
+                const string sError = "Not enough quantity of " + pProduct->getName() + "!";
                 console::printError(sError);
                 return;
             }
