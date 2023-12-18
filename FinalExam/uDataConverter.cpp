@@ -254,8 +254,8 @@ DiscountCode *DataConverter::convertStringToDiscountCode(const string &sDiscount
     }
     else if (sType == "category")
     {
-	    string sCategory;
-	    std::getline(ss, sCategory, cDelimiter);
+        string sCategory;
+        std::getline(ss, sCategory, cDelimiter);
         pDiscountCode = new CategoryDiscountCode(iPercentage, iMaxAmount, sCategory);
     }
     else if (sType == "birthday")

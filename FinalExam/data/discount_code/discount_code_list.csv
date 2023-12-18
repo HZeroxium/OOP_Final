@@ -1,0 +1,8 @@
+Code,Type,Percentage,MaxAmount,Category,
+overall001,overall,0.05,50000,
+overall002,overall,0.07,70000,
+birthday001,birthday,0.1,10000,
+birthday002,birthday,0.15,15000,
+category001,category,0.2,20000,Lenovo
+category002,category,0.3,30000,Apple
+category003,category,0.4,40000,,Laptop
